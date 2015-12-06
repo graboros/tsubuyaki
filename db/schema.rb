@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206144920) do
+ActiveRecord::Schema.define(version: 20151206162425) do
 
   create_table "following_relationships", force: :cascade do |t|
     t.integer  "following_id", limit: 4, null: false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20151206144920) do
 
   add_index "following_relationships", ["followed_id"], name: "index_following_relationships_on_followed_id", using: :btree
   add_index "following_relationships", ["following_id"], name: "index_following_relationships_on_following_id", using: :btree
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "tweet_id",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "likes", ["tweet_id"], name: "index_likes_on_tweet_id", using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "retweeting_relationships", force: :cascade do |t|
     t.integer  "tweet_id",     limit: 4, null: false
@@ -62,6 +72,8 @@ ActiveRecord::Schema.define(version: 20151206144920) do
 
   add_foreign_key "following_relationships", "users", column: "followed_id"
   add_foreign_key "following_relationships", "users", column: "following_id"
+  add_foreign_key "likes", "tweets"
+  add_foreign_key "likes", "users"
   add_foreign_key "retweeting_relationships", "tweets"
   add_foreign_key "retweeting_relationships", "tweets", column: "retweeted_id"
   add_foreign_key "tweets", "users"
