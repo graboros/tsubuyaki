@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206162425) do
+ActiveRecord::Schema.define(version: 20151206165038) do
 
   create_table "following_relationships", force: :cascade do |t|
     t.integer  "following_id", limit: 4, null: false
@@ -24,14 +24,22 @@ ActiveRecord::Schema.define(version: 20151206162425) do
   add_index "following_relationships", ["following_id"], name: "index_following_relationships_on_following_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "tweet_id",   limit: 4
+    t.integer  "user_id",    limit: 4, null: false
+    t.integer  "tweet_id",   limit: 4, null: false
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
 
   add_index "likes", ["tweet_id"], name: "index_likes_on_tweet_id", using: :btree
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.text     "introduction", limit: 65535
+    t.binary   "image",        limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "retweeting_relationships", force: :cascade do |t|
     t.integer  "tweet_id",     limit: 4, null: false
@@ -44,10 +52,10 @@ ActiveRecord::Schema.define(version: 20151206162425) do
   add_index "retweeting_relationships", ["tweet_id"], name: "index_retweeting_relationships_on_tweet_id", using: :btree
 
   create_table "tweets", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4,   null: false
-    t.string   "content",    limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    limit: 4,     null: false
+    t.text     "content",    limit: 65535, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "tweets", ["user_id"], name: "index_tweets_on_user_id", using: :btree
