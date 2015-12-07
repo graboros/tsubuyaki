@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!, except: [:index]
-  before_action :redirect_to_timeline, only: [:index]
+  before_action :authenticate_user!, except: [:index]
+  before_action :redirect_when_signed_in, only: [:index]
 
   def index
   end
@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   end
 
 private
-  def redirect_to_timeline
+  def redirect_when_signed_in
     redirect_to timeline_url if user_signed_in?
   end
 end
