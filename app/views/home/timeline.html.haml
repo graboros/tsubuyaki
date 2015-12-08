@@ -1,2 +1,6 @@
 %h1 Home#timeline
 %p Find me in app/views/home/timeline.html.haml
+- current_user.timeline_tweets.each do |t|
+  .list-group
+    %a.list-group-item{href: "#"}<
+      = t.content

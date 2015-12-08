@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_one :profile
+
   has_many :tweets
 
   has_many :likes
@@ -11,4 +13,9 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def timeline_tweets
+    timeline_users = self.followings << self
+    Tweet.where(user: timeline_users).order(updated_at: :desc)
+  end
 end
