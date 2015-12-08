@@ -14,7 +14,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
-gem 'simple_form'
 gem 'kaminari'
 
 group :development, :test do

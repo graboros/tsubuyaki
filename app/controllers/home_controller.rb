@@ -8,6 +8,9 @@ class HomeController < ApplicationController
   def timeline
   end
 
+  def search
+  end
+
 private
   def redirect_when_signed_in
     redirect_to timeline_url if user_signed_in?
