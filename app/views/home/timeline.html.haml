@@ -1,6 +1,25 @@
-%h1 Home#timeline
-%p Find me in app/views/home/timeline.html.haml
-- current_user.timeline_tweets.each do |t|
-  .list-group
-    %a.list-group-item{href: "#"}<
-      = t.content
+.container{"style" => "padding-top: 15px;"}
+  .row
+    .profile.col-xs-3
+      .panel.panel-default<
+        .panel-heading{"style"=> "background-color: #0084B4; height: 100px;"}
+        .panel-body
+          .row
+            .username.col-xs-12{"style"=> "font-weight: bold"}<
+              graboros
+          .row
+            .tweets.col-xs-4
+              %div
+                ツイート
+            .following.col-xs-4
+              %div
+                フォロー
+            .follower.col-xs-4
+              %div
+                フォロワー
+    .timeline.col-xs-9.list-group3
+      .list-group-item{"style"=> "background-color: #E5F2F7"}
+        %input{"style"=> "width: 100%", "placeholder"=> "いまどうしている？"}
+      - current_user.timeline_tweets.each do |t|
+        .list-group-item<
+          = t.content

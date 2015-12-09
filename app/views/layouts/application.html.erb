@@ -5,10 +5,16 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <style>
+  .container {
+    max-width: none !important;
+    width: 1224px;
+  }
+  </style>
 </head>
-<body>
+<body style="background-color: #F5f8fa">
 
-<header>
+<header style="background-color: white; height :50px;">
   <nav>
     <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
     <% if user_signed_in? %> 
@@ -23,10 +29,9 @@
       <%= link_to "ログイン", new_user_session_path %>
     <% end %>
   </nav>
+  <span class="notice"><%= notice %></span>
+  <span class="alert"><%= alert %></span>
 </header>
-
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
 
 <%= yield %>
 
