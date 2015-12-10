@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :tweets, only: [:create, :update, :destroy] do
       member do
         post 'retweet'
+        post 'unretweet'
       end
     end
 

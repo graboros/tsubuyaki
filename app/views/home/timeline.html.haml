@@ -19,7 +19,9 @@
                 フォロワー
     .timeline.col-xs-9.list-group3
       .list-group-item{"style"=> "background-color: #E5F2F7"}
-        %input{"style"=> "width: 100%", "placeholder"=> "いまどうしている？"}
+        - @tweet = Tweet.new
+        = form_for @tweet, url: user_tweets_path(current_user) do |f|
+          = f.text_field :content, class: "tweet", placeholder: "いまどうしてる？"
       - current_user.timeline_tweets.each do |t|
         .list-group-item<
           = t.content
