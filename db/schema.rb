@@ -13,15 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20151206165038) do
 
-  create_table "following_relationships", force: :cascade do |t|
+  create_table "followings", force: :cascade do |t|
     t.integer  "following_id", limit: 4, null: false
     t.integer  "followed_id",  limit: 4, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  add_index "following_relationships", ["followed_id"], name: "index_following_relationships_on_followed_id", using: :btree
-  add_index "following_relationships", ["following_id"], name: "index_following_relationships_on_following_id", using: :btree
+  add_index "followings", ["followed_id"], name: "index_followings_on_followed_id", using: :btree
+  add_index "followings", ["following_id"], name: "index_followings_on_following_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id",    limit: 4, null: false
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 20151206165038) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "following_relationships", "users", column: "followed_id"
-  add_foreign_key "following_relationships", "users", column: "following_id"
+  add_foreign_key "followings", "users", column: "followed_id"
+  add_foreign_key "followings", "users", column: "following_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
   add_foreign_key "retweeting_relationships", "tweets"

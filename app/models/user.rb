@@ -6,11 +6,10 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :like_tweets, through: :likes
 
-  has_many :followed_relationships, class_name: "FollowingRelationship", foreign_key: "followed_id"
+  has_many :followed_relationships, class_name: "Following", foreign_key: "followed_id"
   has_many :followers, through: :followed_relationships, source: :following
-  has_many :following_relationships, class_name: "FollowingRelationship", foreign_key: "following_id"
+  has_many :following_relationships, class_name: "Following", foreign_key: "following_id"
   has_many :followings, through: :following_relationships, source: :follower
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
