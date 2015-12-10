@@ -41,15 +41,15 @@ ActiveRecord::Schema.define(version: 20151206165038) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "retweeting_relationships", force: :cascade do |t|
+  create_table "retweetings", force: :cascade do |t|
     t.integer  "tweet_id",     limit: 4, null: false
     t.integer  "retweeted_id", limit: 4, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  add_index "retweeting_relationships", ["retweeted_id"], name: "index_retweeting_relationships_on_retweeted_id", using: :btree
-  add_index "retweeting_relationships", ["tweet_id"], name: "index_retweeting_relationships_on_tweet_id", using: :btree
+  add_index "retweetings", ["retweeted_id"], name: "index_retweetings_on_retweeted_id", using: :btree
+  add_index "retweetings", ["tweet_id"], name: "index_retweetings_on_tweet_id", using: :btree
 
   create_table "tweets", force: :cascade do |t|
     t.integer  "user_id",    limit: 4,     null: false
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20151206165038) do
   add_foreign_key "followings", "users", column: "following_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
-  add_foreign_key "retweeting_relationships", "tweets"
-  add_foreign_key "retweeting_relationships", "tweets", column: "retweeted_id"
+  add_foreign_key "retweetings", "tweets"
+  add_foreign_key "retweetings", "tweets", column: "retweeted_id"
   add_foreign_key "tweets", "users"
 end
