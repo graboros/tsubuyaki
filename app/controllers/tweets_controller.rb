@@ -3,8 +3,12 @@ class TweetsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    current_user.tweets.create(tweet_params)
-    redirect_to timeline_path;
+    @tweet = current_user.tweets.build(tweet_params)
+    if @tweet.save then
+      redirect_to timeline_path;
+    else
+
+    end
   end
 
   def update

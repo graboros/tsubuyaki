@@ -1,22 +1,32 @@
 .container{"style" => "padding-top: 15px;"}
   .row
     .profile.col-xs-3
-      .panel.panel-default<
-        .panel-heading{"style"=> "background-color: #0084B4; height: 100px;"}
+      .panel.panel-default
+        .user.panel-heading{"style"=> "background-color: #0084B4; height: 100px;"}
+          = image_tag 'no_image1.png', class: "img-rounded userimage"
+          .username<
+            graboros
         .panel-body
-          .row
-            .username.col-xs-12{"style"=> "font-weight: bold"}<
-              graboros
-          .row
+          .row{"style"=> "padding-top: 30px;"}
             .tweets.col-xs-4
-              %div
-                ツイート
+              %div<
+                %small<
+                  %div<
+                    ツイート
+                %div<
+                  = link_to current_user.tweets.size, user_url(current_user), { class: "listcount" }
             .following.col-xs-4
-              %div
-                フォロー
+              %div<
+                %small<
+                  フォロー
+                %div<
+                  = link_to current_user.followings.size, user_url(current_user), { class: "listcount" }
             .follower.col-xs-4
-              %div
-                フォロワー
+              %div<
+                %small<
+                  フォロワー
+                %div<
+                  = link_to current_user.followers.size, user_url(current_user), { class: "listcount" }
     .timeline.col-xs-9.list-group3
       .list-group-item{"style"=> "background-color: #E5F2F7"}
         - @tweet = Tweet.new
