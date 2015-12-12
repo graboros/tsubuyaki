@@ -34,4 +34,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  def liked?(tweet)
+    not self.like_tweets.include?(tweet)
+  end
 end

@@ -36,7 +36,7 @@ private
   end
 
   def set_tweet
-    @tweet = Tweet.find(params[:tweet_id])
+    @tweet = Tweet.find(params[:id])
   end
 
   def tweet_params

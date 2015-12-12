@@ -41,6 +41,11 @@
             %div 
               = t.content
             %div 
-              = button_tag 'リツイート', class: "btn btn-default btn-sm"
-              = button_tag 'いいね', class: "btn btn-default btn-sm"
-              = button_tag '削除', class: "btn btn-primary btn-sm"
+              = link_to 'リツイート', retweet_user_tweet_url(current_user, t), { class: "btn btn-default btn-sm" }
+
+              - if current_user.liked?(t)
+                = link_to 'いいね', user_likes_url(current_user, id: t), { method: :post, class: "btn btn-default btn-sm" }
+              - else
+                = link_to 'いいね', user_like_url(current_user,t), { method: :delete, class: "btn btn-danger btn-sm" }
+
+              = link_to '削除', user_tweet_url(current_user, t), { method: :delete, class: "btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}
