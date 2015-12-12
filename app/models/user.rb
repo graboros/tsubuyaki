@@ -37,4 +37,7 @@ class User < ActiveRecord::Base
   def liked?(tweet)
     not self.like_tweets.include?(tweet)
   end
+  def own?(tweet)
+    self.tweets.include?(tweet)
+  end
 end

@@ -48,4 +48,5 @@
               - else
                 = link_to 'いいね', user_like_url(current_user,t), { method: :delete, class: "btn btn-danger btn-sm" }
 
-              = link_to '削除', user_tweet_url(current_user, t), { method: :delete, class: "btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}
+              - if current_user.own?(t)
+                = link_to '削除', user_tweet_url(current_user, t), { method: :delete, class: "btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}
