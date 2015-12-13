@@ -1,4 +1,5 @@
 class LikesController < ApplicationController
+  before_action :set_user, only: %i(index)
   before_action :set_tweet, only: %i(create destroy)
   before_action :authenticate_user!
 

@@ -2,13 +2,13 @@
   .row
     %ul.nav.nav-tabs
       %li{"class"=> "#{user_show_path? ? 'active' : ''}"}
-        = link_to 'ツイート', user_url(current_user)
+        = link_to 'ツイート', user_url(@user)
       %li{"class"=> "#{user_followings_path? ? 'active' : ''}"}
-        = link_to 'フォロー', user_followings_url(current_user)
+        = link_to 'フォロー', user_followings_url(@user)
       %li{"class"=> "#{user_followers_path? ? 'active' : ''}"}
-        = link_to 'フォロワー', followers_user_url(current_user)
+        = link_to 'フォロワー', user_followers_url(@user)
       %li{"class"=> "#{user_likes_path? ? 'active' : ''}"}
-        = link_to 'いいね', user_likes_url(current_user)
+        = link_to 'いいね', user_likes_url(@user)
     .timeline.col-xs-9.list-group
       - if user_show_path? 
         = render 'tweets', tweets: current_user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeted.first : t }

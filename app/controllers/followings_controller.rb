@@ -1,5 +1,6 @@
 class FollowingsController < ApplicationController
   before_action :authenticate_user!, only: %i(create destroy)
+  before_action :set_user, only: %i(index followers_index)
 
   def index
     render "users/show"

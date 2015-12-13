@@ -15,10 +15,7 @@ Rails.application.routes.draw do
     end
 
     resources :likes, only: [:index, :create, :destroy]
-
     resources :followings, only: [:index, :create, :destroy]
-    member do
-      get 'followers', :controller=> 'followings', :action=> 'followers_index'
-    end
   end
+  match "users/:user_id/followers", to: 'followings#followers_index', via: :get, as: :user_followers
 end

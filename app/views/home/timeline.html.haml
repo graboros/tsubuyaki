@@ -26,7 +26,7 @@
                 %small<
                   フォロワー
                 %div<
-                  = link_to current_user.followers.size, followers_user_path(current_user), { class: "listcount" }
+                  = link_to current_user.followers.size, user_followers_path(current_user), { class: "listcount" }
     .timeline.col-xs-9.list-group3
       .list-group-item{"style"=> "background-color: #E5F2F7"}
         - @tweet = Tweet.new
