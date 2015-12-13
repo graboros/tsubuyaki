@@ -21,7 +21,6 @@ class TweetsController < ApplicationController
 
   def destroy
     @tweet.destroy
-    redirect_to timeline_url, notice: 'ツイートを削除しました'
   end
 
   def retweet

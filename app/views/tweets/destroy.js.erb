@@ -1,0 +1,2 @@
+$("#tweet<%= @tweet.id %>").remove()
+$("a.tweetcount").text("<%= @tweet.user.tweets.size %>")

@@ -13,9 +13,9 @@
       - if user_show_path? 
         - current_user.timeline_tweets.each do |t|
           - tweet = t.retweeteds.present? ? t.retweeteds.first : t
-          #users_show.tweet.list-group-item.clearfix.tab-pane<
+          .users_show.tweet.list-group-item.clearfix{id: "tweet#{tweet.id}"}<
             = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
-            .content{id: "tweet#{tweet.id}"}
+            .content
               %div.username
                 = tweet.user.username
               %div 
@@ -28,16 +28,14 @@
                   = link_to 'リツイート', retweet_user_tweet_url(current_user, tweet), 
                     { method: :post, class: "btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
                 = render 'like', tweet: tweet
+                = render 'delete', tweet: tweet
 
-                - if current_user.own?(tweet)
-                  = link_to '削除', user_tweet_url(current_user, tweet), 
-                    { method: :delete, class: "btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}
       - elsif user_followings_path?
-        #users_followings<
+        .users_followings<
           followings
       - elsif user_followers_path?
-        #users_followers<
+        .users_followers<
           followers
       - elsif user_likes_path?
-        #users_likes<
+        .users_likes<
           likes

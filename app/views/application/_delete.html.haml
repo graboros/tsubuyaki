@@ -1,0 +1,3 @@
+- if current_user.own?(tweet)
+  = link_to '削除', user_tweet_path(current_user, tweet), 
+    { method: :delete, class: "deletebtn btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }, remote: true}

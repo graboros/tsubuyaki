@@ -14,7 +14,7 @@
                   %div<
                     ツイート
                 %div<
-                  = link_to current_user.tweets.size, user_path(current_user), { class: "listcount" }
+                  = link_to current_user.tweets.size, user_path(current_user), { class: "tweetcount listcount" }
             .following.col-xs-4
               %div<
                 %small<
@@ -34,9 +34,9 @@
           = f.text_field :content, class: "tweet", placeholder: "いまどうしてる？"
       - current_user.timeline_tweets.each do |t|
         - tweet = t.retweeteds.present? ? t.retweeteds.first : t
-        .tweet.list-group-item.clearfix<
+        .tweet.list-group-item.clearfixt{id: "tweet#{tweet.id}"}<
           = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
-          .content{id: "tweet#{tweet.id}"}
+          .content
             %div.username
               = tweet.user.username
             %div 
@@ -49,7 +49,4 @@
                 = link_to 'リツイート', retweet_user_tweet_path(current_user, tweet), 
                   { method: :post, class: "retweetbtn btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
               = render 'like', tweet: tweet
-
-              - if current_user.own?(tweet)
-                = link_to '削除', user_tweet_path(current_user, tweet), 
-                  { method: :delete, class: "deletebtn btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}
+              = render 'delete', tweet: tweet
