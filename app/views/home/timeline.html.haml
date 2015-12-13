@@ -20,16 +20,16 @@
                 %small<
                   フォロー
                 %div<
-                  = link_to current_user.followings.size, user_path(current_user), { class: "listcount" }
+                  = link_to current_user.followings.size, user_followings_path(current_user), { class: "listcount" }
             .follower.col-xs-4
               %div<
                 %small<
                   フォロワー
                 %div<
-                  = link_to current_user.followers.size, user_path(current_user), { class: "listcount" }
+                  = link_to current_user.followers.size, followers_user_path(current_user), { class: "listcount" }
     .timeline.col-xs-9.list-group3
       .list-group-item{"style"=> "background-color: #E5F2F7"}
         - @tweet = Tweet.new
         = form_for @tweet, url: user_tweets_path(current_user) do |f|
           = f.text_field :content, class: "tweet", placeholder: "いまどうしてる？"
-      = render 'tweets', tweets: current_user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeted.first : t }
+      = render 'tweets', tweets: current_user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeteds.first : t }

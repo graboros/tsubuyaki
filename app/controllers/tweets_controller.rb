@@ -35,11 +35,7 @@ class TweetsController < ApplicationController
   end
 
   def unretweet
-    # current_userから引くと以下のようにtweets経由で取りに行かないといけないのでループにしないといけなくなりそう
-    # ？ current_user.tweets.retweetings.find_by!(retweet: get_tweet).destroy_all
-
-    Tweet.joins("LEFT JOIN retweetings On tweets.id = retweetings.tweet_id").where("tweets.user_id = ? AND retweetings.retweeted_id = ?", current_user.id, params[:id]).destroy_all
-
+    Tweet::unretweet(current_user.id, params[:id])
     redirect_to timeline_url, notice: "untetweet test"
   end
 

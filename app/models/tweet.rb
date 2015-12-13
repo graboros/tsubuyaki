@@ -11,4 +11,11 @@ class Tweet < ActiveRecord::Base
   # Retweetingモデル側のリツイートしているツイートにdependent属性を指定して、同時にリツイートしているツイートも削除する
   has_many :retweeted_relationships, class_name: "Retweeting", foreign_key: "retweeted_id", dependent: :destroy
   has_many :retweets, through: :retweeted_relationships
+
+  def self.unretweet(user_id, tweet_id)
+    # current_userから引くと以下のようにtweets経由で取りに行かないといけななり、ループにしないといけなくなりそうなので、しょうがないからSQLで消す
+    # ? current_user.tweets.retweetings.find_by!(retweet: get_tweet).destroy_all
+    self.where("tweets.user_id = ?", user_id).joins("LEFT JOIN retweetings On tweets.id = retweetings.tweet_id").where("retweetings.retweeted_id = ?", tweet_id).destroy_all
+  end
+
 end

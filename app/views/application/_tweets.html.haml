@@ -1,12 +1,16 @@
-- tweets.each do |tweet|
-  .tweet.list-group-item.clearfixt{id: "tweet#{tweet.id}"}<
-    = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
-    .content
-      %div.username
-        = tweet.user.username
-      %div 
-        = tweet.content
-      %div 
-        = render 'retweet', tweet: tweet
-        = render 'like', tweet: tweet
-        = render 'delete', tweet: tweet
+-if tweets.any?
+  - tweets.each do |tweet|
+    .tweet.list-group-item.clearfixt{id: "tweet#{tweet.id}"}<
+      = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
+      .content
+        %div.username
+          = tweet.user.username
+        %div 
+          = tweet.content
+        %div 
+          = render 'retweet', tweet: tweet
+          = render 'like', tweet: tweet
+          = render 'delete', tweet: tweet
+- else
+  .list-group-item<
+    該当のツイートは存在しません
