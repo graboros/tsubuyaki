@@ -11,25 +11,7 @@
         = link_to 'いいね', user_likes_url(current_user)
     .timeline.col-xs-9.list-group
       - if user_show_path? 
-        - current_user.timeline_tweets.each do |t|
-          - tweet = t.retweeteds.present? ? t.retweeteds.first : t
-          .users_show.tweet.list-group-item.clearfix{id: "tweet#{tweet.id}"}<
-            = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
-            .content
-              %div.username
-                = tweet.user.username
-              %div 
-                = tweet.content
-              %div 
-                - if current_user.retweeting?(tweet)
-                  = link_to 'リツイート', unretweet_user_tweet_url(current_user, tweet), 
-                    { method: :post, class: "btn btn-info btn-sm" }
-                - else
-                  = link_to 'リツイート', retweet_user_tweet_url(current_user, tweet), 
-                    { method: :post, class: "btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
-                = render 'like', tweet: tweet
-                = render 'delete', tweet: tweet
-
+        = render 'tweets', tweets: current_user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeted.first : t }
       - elsif user_followings_path?
         .users_followings<
           followings
@@ -38,4 +20,4 @@
           followers
       - elsif user_likes_path?
         .users_likes<
-          likes
+          = render 'tweets', tweets: current_user.like_tweets

@@ -32,21 +32,4 @@
         - @tweet = Tweet.new
         = form_for @tweet, url: user_tweets_path(current_user) do |f|
           = f.text_field :content, class: "tweet", placeholder: "いまどうしてる？"
-      - current_user.timeline_tweets.each do |t|
-        - tweet = t.retweeteds.present? ? t.retweeteds.first : t
-        .tweet.list-group-item.clearfixt{id: "tweet#{tweet.id}"}<
-          = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
-          .content
-            %div.username
-              = tweet.user.username
-            %div 
-              = tweet.content
-            %div 
-              - if current_user.retweeting?(tweet)
-                = link_to 'リツイート', unretweet_user_tweet_path(current_user, tweet), 
-                  { method: :post, class: "retweetbtn btn btn-info btn-sm" }
-              - else
-                = link_to 'リツイート', retweet_user_tweet_path(current_user, tweet), 
-                  { method: :post, class: "retweetbtn btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
-              = render 'like', tweet: tweet
-              = render 'delete', tweet: tweet
+      = render 'tweets', tweets: current_user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeted.first : t }
