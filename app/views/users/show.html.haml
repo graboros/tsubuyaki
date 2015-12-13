@@ -7,6 +7,8 @@
         = link_to 'フォロー', user_followings_url(current_user)
       %li{"class"=> "#{user_followers_path? ? 'active' : ''}"}
         = link_to 'フォロワー', followers_user_url(current_user)
+      %li{"class"=> "#{user_likes_path? ? 'active' : ''}"}
+        = link_to 'いいね', user_likes_url(current_user)
     .timeline.col-xs-9.list-group
       - if user_show_path? 
         - current_user.timeline_tweets.each do |t|
@@ -40,3 +42,6 @@
       - elsif user_followers_path?
         #users_followers<
           followers
+      - elsif user_likes_path?
+        #users_likes<
+          likes

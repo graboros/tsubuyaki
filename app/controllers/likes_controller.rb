@@ -2,6 +2,10 @@ class LikesController < ApplicationController
   before_action :set_tweet, only: %i(create destroy)
   before_action :authenticate_user!
 
+  def index
+    render "users/show"
+  end
+
   def create
     current_user.likes.find_or_create_by!(like_tweet: @tweet)
     redirect_to timeline_url, notice: 'いいねしました'
