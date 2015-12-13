@@ -14,19 +14,19 @@
                   %div<
                     ツイート
                 %div<
-                  = link_to current_user.tweets.size, user_url(current_user), { class: "listcount" }
+                  = link_to current_user.tweets.size, user_path(current_user), { class: "listcount" }
             .following.col-xs-4
               %div<
                 %small<
                   フォロー
                 %div<
-                  = link_to current_user.followings.size, user_url(current_user), { class: "listcount" }
+                  = link_to current_user.followings.size, user_path(current_user), { class: "listcount" }
             .follower.col-xs-4
               %div<
                 %small<
                   フォロワー
                 %div<
-                  = link_to current_user.followers.size, user_url(current_user), { class: "listcount" }
+                  = link_to current_user.followers.size, user_path(current_user), { class: "listcount" }
     .timeline.col-xs-9.list-group3
       .list-group-item{"style"=> "background-color: #E5F2F7"}
         - @tweet = Tweet.new
@@ -36,24 +36,20 @@
         - tweet = t.retweeteds.present? ? t.retweeteds.first : t
         .tweet.list-group-item.clearfix<
           = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
-          .content
+          .content{id: "tweet#{tweet.id}"}
             %div.username
               = tweet.user.username
             %div 
               = tweet.content
             %div 
               - if current_user.retweeting?(tweet)
-                = link_to 'リツイート', unretweet_user_tweet_url(current_user, tweet), 
-                  { method: :post, class: "btn btn-info btn-sm" }
+                = link_to 'リツイート', unretweet_user_tweet_path(current_user, tweet), 
+                  { method: :post, class: "retweetbtn btn btn-info btn-sm" }
               - else
-                = link_to 'リツイート', retweet_user_tweet_url(current_user, tweet), 
-                  { method: :post, class: "btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
-
-              - if current_user.liked?(tweet)
-                = link_to 'いいね', user_like_url(current_user,tweet), { method: :delete, class: "btn btn-danger btn-sm" }
-              - else
-                = link_to 'いいね', user_likes_url(current_user, id: tweet), { method: :post, class: "btn btn-default btn-sm" }
+                = link_to 'リツイート', retweet_user_tweet_path(current_user, tweet), 
+                  { method: :post, class: "retweetbtn btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
+              = render 'like', tweet: tweet
 
               - if current_user.own?(tweet)
-                = link_to '削除', user_tweet_url(current_user, tweet), 
-                  { method: :delete, class: "btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}
+                = link_to '削除', user_tweet_path(current_user, tweet), 
+                  { method: :delete, class: "deletebtn btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}

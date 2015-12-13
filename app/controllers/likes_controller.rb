@@ -8,12 +8,10 @@ class LikesController < ApplicationController
 
   def create
     current_user.likes.find_or_create_by!(like_tweet: @tweet)
-    redirect_to timeline_url, notice: 'いいねしました'
   end
 
   def destroy
     current_user.likes.find_by!(like_tweet: @tweet).destroy
-    redirect_to timeline_url, notice: 'いいねを解除しました'
   end
 
 private

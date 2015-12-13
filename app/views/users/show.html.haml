@@ -15,7 +15,7 @@
           - tweet = t.retweeteds.present? ? t.retweeteds.first : t
           #users_show.tweet.list-group-item.clearfix.tab-pane<
             = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
-            .content
+            .content{id: "tweet#{tweet.id}"}
               %div.username
                 = tweet.user.username
               %div 
@@ -27,11 +27,7 @@
                 - else
                   = link_to 'リツイート', retweet_user_tweet_url(current_user, tweet), 
                     { method: :post, class: "btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
-
-                - if current_user.liked?(tweet)
-                  = link_to 'いいね', user_like_url(current_user,tweet), { method: :delete, class: "btn btn-danger btn-sm" }
-                - else
-                  = link_to 'いいね', user_likes_url(current_user, id: tweet), { method: :post, class: "btn btn-default btn-sm" }
+                = render 'like', tweet: tweet
 
                 - if current_user.own?(tweet)
                   = link_to '削除', user_tweet_url(current_user, tweet), 
