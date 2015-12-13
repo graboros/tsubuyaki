@@ -11,7 +11,7 @@
         = link_to 'いいね', user_likes_url(@user)
     .timeline.col-xs-9.list-group
       - if user_show_path? 
-        = render 'tweets', tweets: current_user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeted.first : t }
+        = render 'tweets', tweets: @user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeteds.first : t }
       - elsif user_followings_path?
         .users_followings<
           followings
@@ -20,4 +20,4 @@
           followers
       - elsif user_likes_path?
         .users_likes<
-          = render 'tweets', tweets: current_user.like_tweets
+          = render 'tweets', tweets: @user.like_tweets
