@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :likes, only: [:create, :destroy]
+    resources :likes, only: [:index, :create, :destroy]
 
     resources :followings, only: [:index, :create, :destroy]
     member do

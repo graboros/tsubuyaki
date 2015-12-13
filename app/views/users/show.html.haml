@@ -1,5 +1,42 @@
-%p#notice= notice
+.container{"style" => "padding-top: 15px;"}
+  .row
+    %ul.nav.nav-tabs
+      %li{"class"=> "#{user_show_path? ? 'active' : ''}"}
+        = link_to 'ツイート', user_url(current_user)
+      %li{"class"=> "#{user_followings_path? ? 'active' : ''}"}
+        = link_to 'フォロー', user_followings_url(current_user)
+      %li{"class"=> "#{user_followers_path? ? 'active' : ''}"}
+        = link_to 'フォロワー', followers_user_url(current_user)
+    .timeline.col-xs-9.list-group
+      - if user_show_path? 
+        - current_user.timeline_tweets.each do |t|
+          - tweet = t.retweeteds.present? ? t.retweeteds.first : t
+          #users_show.tweet.list-group-item.clearfix.tab-pane<
+            = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
+            .content
+              %div.username
+                = tweet.user.username
+              %div 
+                = tweet.content
+              %div 
+                - if current_user.retweeting?(tweet)
+                  = link_to 'リツイート', unretweet_user_tweet_url(current_user, tweet), 
+                    { method: :post, class: "btn btn-info btn-sm" }
+                - else
+                  = link_to 'リツイート', retweet_user_tweet_url(current_user, tweet), 
+                    { method: :post, class: "btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
 
-%h2<
-  user show
+                - if current_user.liked?(tweet)
+                  = link_to 'いいね', user_like_url(current_user,tweet), { method: :delete, class: "btn btn-danger btn-sm" }
+                - else
+                  = link_to 'いいね', user_likes_url(current_user, id: tweet), { method: :post, class: "btn btn-default btn-sm" }
 
+                - if current_user.own?(tweet)
+                  = link_to '削除', user_tweet_url(current_user, tweet), 
+                    { method: :delete, class: "btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}
+      - elsif user_followings_path?
+        #users_followings<
+          followings
+      - elsif user_followers_path?
+        #users_followers<
+          followers

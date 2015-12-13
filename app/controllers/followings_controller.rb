@@ -1,6 +1,14 @@
 class FollowingsController < ApplicationController
   before_action :authenticate_user!, only: %i(create destroy)
 
+  def index
+    render "users/show"
+  end
+
+  def followers_index
+    render "users/show"
+  end
+
   def create
     current_user.following_relationships.find_or_create_by!(follower: get_follower)
   end
