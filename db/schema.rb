@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20151212051519) do
 
   create_table "tweets", force: :cascade do |t|
     t.integer  "user_id",    limit: 4,     null: false
-    t.text     "content",    limit: 65535, null: false
+    t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end

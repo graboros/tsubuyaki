@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :like_tweets, through: :likes
 
+  #has_many :retweeted_relationships, through: :retweeting
+  has_many :retweeteds, through: :tweets
+
   has_many :followed_relationships, class_name: "Following", foreign_key: "followed_id"
   has_many :followers, through: :followed_relationships, source: :following
   has_many :following_relationships, class_name: "Following", foreign_key: "following_id"
@@ -35,9 +38,13 @@ class User < ActiveRecord::Base
   end
 
   def liked?(tweet)
-    not self.like_tweets.include?(tweet)
+    self.like_tweets.include?(tweet)
   end
   def own?(tweet)
     self.tweets.include?(tweet)
+  end
+
+  def retweeting?(tweet)
+    self.retweeteds.include?(tweet)
   end
 end

@@ -33,20 +33,27 @@
         = form_for @tweet, url: user_tweets_path(current_user) do |f|
           = f.text_field :content, class: "tweet", placeholder: "いまどうしてる？"
       - current_user.timeline_tweets.each do |t|
+        - tweet = t.retweeteds.present? ? t.retweeteds.first : t
         .tweet.list-group-item.clearfix<
           = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
           .content
             %div.username
-              = t.user.username
+              = tweet.user.username
             %div 
-              = t.content
+              = tweet.content
             %div 
-              = link_to 'リツイート', retweet_user_tweet_url(current_user, t), { class: "btn btn-default btn-sm" }
-
-              - if current_user.liked?(t)
-                = link_to 'いいね', user_likes_url(current_user, id: t), { method: :post, class: "btn btn-default btn-sm" }
+              - if current_user.retweeting?(tweet)
+                = link_to 'リツイート', unretweet_user_tweet_url(current_user, tweet), 
+                  { method: :post, class: "btn btn-info btn-sm" }
               - else
-                = link_to 'いいね', user_like_url(current_user,t), { method: :delete, class: "btn btn-danger btn-sm" }
+                = link_to 'リツイート', retweet_user_tweet_url(current_user, tweet), 
+                  { method: :post, class: "btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
 
-              - if current_user.own?(t)
-                = link_to '削除', user_tweet_url(current_user, t), { method: :delete, class: "btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}
+              - if current_user.liked?(tweet)
+                = link_to 'いいね', user_like_url(current_user,tweet), { method: :delete, class: "btn btn-danger btn-sm" }
+              - else
+                = link_to 'いいね', user_likes_url(current_user, id: tweet), { method: :post, class: "btn btn-default btn-sm" }
+
+              - if current_user.own?(tweet)
+                = link_to '削除', user_tweet_url(current_user, tweet), 
+                  { method: :delete, class: "btn btn-primary btn-sm", data: { confirm: "本当に削除してもよろしいですか？" }}

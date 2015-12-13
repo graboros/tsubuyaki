@@ -4,11 +4,15 @@ class TweetsController < ApplicationController
   before_action :current_users_tweet, only: %i(destroy)
 
   def create
-    @tweet = current_user.tweets.build(tweet_params)
-    if @tweet.save then
-      redirect_to timeline_path;
-    else
+    if tweet_params[:content].present?
+      @tweet = current_user.tweets.build(tweet_params)
+      if @tweet.save 
+        redirect_to timeline_path;
+      else
 
+      end
+    else
+      redirect_to timeline_path;
     end
   end
 
@@ -21,11 +25,23 @@ class TweetsController < ApplicationController
   end
 
   def retweet
-    current_user.following_relationships.find_or_create_by!(follower: get_follower)
+    @tweet = current_user.tweets.build()
+    @retweet = @tweet.retweeting_relationships.build(retweeted: get_tweet)
+
+    if @tweet.save
+      redirect_to timeline_url, notice: 'リツイートしました'
+    else
+
+    end
   end
 
   def unretweet
-    current_user.following_relationships.find_by!(follower: get_follower).destroy
+    # current_userから引くと以下のようにtweets経由で取りに行かないといけないのでループにしないといけなくなりそう
+    # ？ current_user.tweets.retweetings.find_by!(retweet: get_tweet).destroy_all
+
+    Tweet.joins("LEFT JOIN retweetings On tweets.id = retweetings.tweet_id").where("tweets.user_id = ? AND retweetings.retweeted_id = ?", current_user.id, params[:id]).destroy_all
+
+    redirect_to timeline_url, notice: "untetweet test"
   end
 
 private
@@ -41,5 +57,9 @@ private
 
   def tweet_params
     params.require(:tweet).permit(:content)
+  end
+
+  def get_tweet
+    Tweet.find(params[:id])
   end
 end
