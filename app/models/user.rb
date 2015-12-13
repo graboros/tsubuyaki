@@ -47,4 +47,7 @@ class User < ActiveRecord::Base
   def retweeting?(tweet)
     self.retweeteds.include?(tweet)
   end
+  def following?(user)
+    self.followings.include?(user)
+  end
 end

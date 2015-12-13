@@ -1,5 +1,5 @@
 class FollowingsController < ApplicationController
-  before_action :authenticate_user!, only: %i(create destroy)
+  before_action :authenticate_user!, :set_follower, only: %i(create destroy)
   before_action :set_user, only: %i(index followers_index)
 
   def index
@@ -11,15 +11,15 @@ class FollowingsController < ApplicationController
   end
 
   def create
-    current_user.following_relationships.find_or_create_by!(follower: get_follower)
+    current_user.following_relationships.find_or_create_by!(follower: @user)
   end
 
   def destroy
-    current_user.following_relationships.find_by!(follower: get_follower).destroy
+    current_user.following_relationships.find_by!(follower: @user).destroy
   end
 
 private
-  def get_follower
-    User.find(params[:follower_id])
+  def set_follower
+    @user = User.find(params[:id])
   end
 end
