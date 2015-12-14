@@ -1,0 +1,15 @@
+-if users.any?
+  - users.each do |user|
+    .follow_user.clearfixt{id: "user#{user.id}"}<
+      .col-xs-4<
+        .panel.panel-default<
+          .panel-heading{"style"=> "background-color: #0083B4; height: 90px;"}
+            = render 'follow', user: user
+            = image_tag 'no_image1.png', class: "img-rounded userimage"
+            .username<
+              = user.username
+          .panel-body
+            %div{"style"=> "font-weight: bold;"}<
+- else
+  .list-group-item<
+    該当のユーザは存在しません

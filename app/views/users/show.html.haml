@@ -1,8 +1,7 @@
 .container{"style" => "padding-top: 15px;"}
   .row
-    .profile.col-xs-3
-      - if not me?(@user)
-        = render 'follow', user: @user
+    .profile.col-xs-3{"id"=> "user#{@user.id}"}
+      = render 'follow', user: @user
     .timeline.col-xs-9.list-group
       %ul.nav.nav-tabs
         %li{"class"=> "#{user_show_path? ? 'active' : ''}"}
@@ -17,10 +16,10 @@
         = render 'tweets', tweets: @user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeteds.first : t }
       - elsif user_followings_path?
         .users_followings<
-          followings
+          = render 'follow_users', users: @user.followings
       - elsif user_followers_path?
         .users_followers<
-          followers
+          = render 'follow_users', users: @user.followers
       - elsif user_likes_path?
         .users_likes<
           = render 'tweets', tweets: @user.like_tweets

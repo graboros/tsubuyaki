@@ -1,5 +1,5 @@
 - unless me?(user)
   - if current_user.following?(user)
-    = link_to 'フォロー中', user_following_url(current_user, user), { method: :delete, class: "followbtn btn btn-lg btn-info", remote: true }
+    = link_to 'フォロー中', user_following_url(current_user, user), { method: :delete, class: "followbtn btn btn-info", remote: true }
   - else
-    = link_to 'フォロー', user_followings_url(current_user, id: user), { method: :post, class: "followbtn btn btn-lg btn-default", remote: true }
+    = link_to 'フォロー', user_followings_url(current_user, id: user), { method: :post, class: "followbtn btn btn-default", remote: true }
