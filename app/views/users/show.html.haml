@@ -13,7 +13,7 @@
         %li{"class"=> "#{user_likes_path? ? 'active' : ''}"}
           = link_to 'いいね', user_likes_url(@user)
       - if user_show_path? 
-        = render 'tweets', tweets: @user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeteds.first : t }
+        = render 'tweets', tweets: @user.timeline_tweets
       - elsif user_followings_path?
         .users_followings<
           = render 'follow_users', users: @user.followings

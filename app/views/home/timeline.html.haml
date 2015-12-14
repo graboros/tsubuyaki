@@ -32,4 +32,4 @@
         - @tweet = Tweet.new
         = form_for @tweet, url: user_tweets_path(current_user) do |f|
           = f.text_field :content, class: "tweet", placeholder: "いまどうしてる？"
-      = render 'tweets', tweets: current_user.timeline_tweets.map{ |t| t.retweeteds.present? ? t.retweeteds.first : t }
+      = render 'tweets', tweets: current_user.timeline_tweets

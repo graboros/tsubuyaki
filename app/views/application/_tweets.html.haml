@@ -1,6 +1,10 @@
 -if tweets.any?
-  - tweets.each do |tweet|
+  - tweets.each do |t|
+    - tweet = t.retweeteds.present? ? t.retweeteds.first : t
     .tweet.list-group-item.clearfixt{id: "tweet#{tweet.id}"}<
+      - if t.retweeteds.present?
+        .retweet_msg<
+          #{t.user.username}さんがリツイート
       = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
       .content
         %div.username
