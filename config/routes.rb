@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post "search" => "home#search"
 
   resources :users, only: [:show] do 
-    resources :tweets, only: [:create, :update, :destroy] do
+    resources :tweets, only: [:create, :destroy] do
       member do
         post 'retweet'
         post 'unretweet'

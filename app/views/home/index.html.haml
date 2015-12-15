@@ -1,2 +1,10 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+.jumbotron{"style"=> "height: 300px;"}
+  .container
+    %p<
+      %p<
+        Tsubuyaki(つぶやき)にようこそ！
+      %div{"style"=> "padding-bottom: 10px;"} 
+        = link_to "ログイン", new_user_session_path, {"class"=> "btn btn-info", "style"=> "width: 300px;" }
+      %div
+        = link_to "サインイン", new_user_registration_path, {"class"=> "btn btn-default", "style"=> "width: 300px;" }
+    %p

@@ -16,9 +16,6 @@ class TweetsController < ApplicationController
     end
   end
 
-  def update
-  end
-
   def destroy
     @tweet.destroy
   end

@@ -6,9 +6,25 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <style>
-  .container {
+  /* ヘッダー部 */
+  .notice, .alert {
+    position: absolute;
+    top: 15px;
+    left: 430px;
+  }
+  .btn-home {
+    margin: 10px;
+  }
+  .search-form {
+    margin-left: 420px;
+  }
+  .search-text {
+    width: 300px;
+  }
+  /* コンテンツ、ヘッダー部の幅固定 */
+  .container, nav {
     max-width: none !important;
-    width: 1224px;
+    width: 1280px;
   }
   /* タイムライン */
   input[type="text"].tweet {
@@ -70,7 +86,7 @@
     font-weight: bold;
   }
   /* ユーザ毎の画面の左側 */
-  div.user_show{
+  div.user_show {
     position: relative;
   }
   /* ユーザ毎の画面のフォローユーザ、フォロワー */
@@ -110,25 +126,25 @@
 </head>
 <body style="background-color: #F5f8fa">
 
-<header style="background-color: white; height :50px;">
-  <nav>
     <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
     <% if user_signed_in? %> 
-    <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
-    <!-- *_path はUserモデルを作成したときに、
-      deviseにより自動で作成されてますので、rake routesで確認できます -->
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'プロフィール変更', edit_user_registration_path %> |
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "サインイン", new_user_registration_path %> |
-      <%= link_to "ログイン", new_user_session_path %>
-    <% end %>
-  </nav>
-  <span class="notice"><%= notice %></span>
-  <span class="alert"><%= alert %></span>
-</header>
 
+      <header style="background-color: white; height :50px;">
+        <nav>
+          <%= link_to "ホーム", root_path, class: "btn btn-primary btn-home" %>
+          Logged in as <strong><%= current_user.username%></strong>.
+          <%= link_to '設定(ユーザ情報)', edit_user_registration_path %> |
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <span class="notice"><%= notice %></span>
+          <span class="alert"><%= alert %></span>
+
+          <%= form_tag("/search", method: "post", "style"=> "display: inline", class: "search-form") do %>
+            <%= text_field_tag 'home[text]', @text, class: 'search-text', placeholder: 'Twitterを検索' %>
+            <%= submit_tag "検索", class: "btn btn-primary" %>
+          <% end %>
+        </nav>
+      </header>
+    <% end %>
 <%= yield %>
 
 </body>
