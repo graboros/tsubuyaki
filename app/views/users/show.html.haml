@@ -19,7 +19,7 @@
       - if me?(@user)
         = link_to 'プロフィール変更', edit_user_registration_path, class: "edit_profile btn btn-info"
       - if user_show_path? 
-        = render 'tweets', tweets: @user.timeline_tweets
+        = render 'tweets', tweets: @user.tweets
       - elsif user_followings_path?
         .users_followings<
           = render 'follow_users', users: @user.followings

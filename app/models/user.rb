@@ -1,11 +1,10 @@
 class User < ActiveRecord::Base
   has_one :profile
 
-  has_many :tweets
+  has_many :tweets, ->{order("created_at DESC")}
 
   has_many :likes
-  has_many :like_tweets, through: :likes
-
+  has_many :like_tweets, ->{order("likes.created_at DESC")}, through: :likes
   #has_many :retweeted_relationships, through: :retweeting
   has_many :retweeteds, through: :tweets
 
