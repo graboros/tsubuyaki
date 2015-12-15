@@ -1,7 +1,11 @@
 .container{"style" => "padding-top: 15px;"}
   .row
     .profile.col-xs-3{"id"=> "user#{@user.id}"}
-      = render 'follow', user: @user
+      .user_show
+        = image_tag 'no_image2.png', class: "userimage img-rounded pull-left"
+        %div.username
+          = link_to @user.username, user_path(@user)
+        = render 'follow', user: @user
     .timeline.col-xs-9.list-group
       %ul.nav.nav-tabs
         %li{"class"=> "#{user_show_path? ? 'active' : ''}"}
@@ -12,6 +16,8 @@
           = link_to 'フォロワー', user_followers_url(@user)
         %li{"class"=> "#{user_likes_path? ? 'active' : ''}"}
           = link_to 'いいね', user_likes_url(@user)
+      - if me?(@user)
+        = link_to 'プロフィール変更', edit_user_registration_path, class: "edit_profile btn btn-info"
       - if user_show_path? 
         = render 'tweets', tweets: @user.timeline_tweets
       - elsif user_followings_path?

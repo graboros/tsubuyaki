@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: "home#index"
-  get "timeline" => "home#timeline"
   post "search" => "home#search"
 
   resources :users, only: [:show] do 

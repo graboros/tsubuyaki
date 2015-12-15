@@ -1,0 +1,2 @@
+$("#tweet<%= @retweet.retweeteds.first.id %> a.retweetbtn").replaceWith(
+  "<%= escape_javascript(render partial: 'retweet', locals: {tweet: @retweet.retweeteds.first}) %>");

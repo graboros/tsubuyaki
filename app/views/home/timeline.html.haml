@@ -1,8 +1,8 @@
 .container{"style" => "padding-top: 15px;"}
   .row
     .profile.col-xs-3
-      .panel.panel-default
-        .user.panel-heading{"style"=> "background-color: #0084B4; height: 100px;"}
+      .user.panel.panel-default
+        .panel-heading{"style"=> "background-color: #0084B4; height: 100px;"}
           = image_tag 'no_image1.png', class: "img-rounded userimage"
           .username<
             = link_to current_user.username, user_path(current_user)

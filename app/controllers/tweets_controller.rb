@@ -7,12 +7,12 @@ class TweetsController < ApplicationController
     if tweet_params[:content].present?
       @tweet = current_user.tweets.build(tweet_params)
       if @tweet.save 
-        redirect_to timeline_path;
+        redirect_to root_url
       else
 
       end
     else
-      redirect_to timeline_path;
+      redirect_to root_url
     end
   end
 
@@ -24,19 +24,13 @@ class TweetsController < ApplicationController
   end
 
   def retweet
-    @tweet = current_user.tweets.build()
-    @retweet = @tweet.retweeting_relationships.build(retweeted: get_tweet)
-
-    if @tweet.save
-      redirect_to timeline_url, notice: 'リツイートしました'
-    else
-
-    end
+    @retweet = current_user.tweets.build()
+    @retweeted = @retweet.retweeting_relationships.build(retweeted: @tweet)
+    @retweet.save
   end
 
   def unretweet
-    Tweet::unretweet(current_user.id, params[:id])
-    redirect_to timeline_url, notice: "untetweet test"
+    Tweet::unretweet(current_user.id, @tweet)
   end
 
 private
@@ -52,9 +46,5 @@ private
 
   def tweet_params
     params.require(:tweet).permit(:content)
-  end
-
-  def get_tweet
-    Tweet.find(params[:id])
   end
 end

@@ -10,6 +10,7 @@
     max-width: none !important;
     width: 1224px;
   }
+  /* タイムライン */
   input[type="text"].tweet {
     width: 100%;
   }
@@ -28,12 +29,10 @@
     font-weight: bold;
     font-size: 16px;
   }
-  div.username a {
-    color: black;
-  }
-  a.listcount {
+  div.user a.listcount {
     font-size: 18px;
   }
+  /* タイムライン、ユーザ毎の画面のツイート */
   div.tweet img.userimage {
     width: 40px;
     height: 40px;
@@ -45,6 +44,11 @@
   div.tweet div.content div.username{
     font-weight: bold;
   }
+  div.tweet div.retweet_msg {
+    color: gray;
+    padding-left: 50px;
+  }
+  /* ユーザ毎の画面のフォローユーザ */
   div.follow_user div.panel {
     margin: 5px;
     width: 290px;
@@ -65,15 +69,42 @@
     left: 200px;
     font-weight: bold;
   }
-  div.profile a.followbtn{
+  /* ユーザ毎の画面の左側 */
+  div.user_show{
+    position: relative;
+  }
+  /* ユーザ毎の画面のフォローユーザ、フォロワー */
+  div.user_show img {
+    position: absolute;
+    top: 0;
     width: 200px;
   }
-  div.retweet_msg {
-    color: gray;
-    padding-left: 50px;
+  /* ユーザ毎の画面の左側フォローボタン */
+  div.user_show div.username {
+    position: absolute;
+    top: 210px;
+    font-weight: bold;
+    font-size: 16px;
   }
+  /* ユーザ毎の画面の左側フォローボタン */
+  div.user_show a.followbtn {
+    position: absolute;
+    top: 240px;
+    width: 200px;
+  }
+  /* ユーザが存在しません、フォローがありませんメッセージ */
   div.no_user, div.no_tweet {
     height: 200px;
+  }
+  /* ユーザ毎の画面のプロファイル変更ボタン */
+  a.edit_profile {
+    position: absolute;
+    top: 0px;
+    left: 770px;
+  }
+  /* タイムライン、ツイート、フォロー、フォロワー全てのユーザ名 */
+  div.username a {
+    color: black;
   }
   </style>
 </head>

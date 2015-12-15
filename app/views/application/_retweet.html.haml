@@ -1,7 +1,7 @@
 - if not current_user.own?(tweet)
   - if current_user.retweeting?(tweet)
     = link_to 'リツイート', unretweet_user_tweet_path(current_user, tweet), 
-      { method: :post, class: "retweetbtn btn btn-info btn-sm" }
+      { method: :post, class: "retweetbtn btn btn-info btn-sm", remote: true }
   - else
     = link_to 'リツイート', retweet_user_tweet_path(current_user, tweet), 
-      { method: :post, class: "retweetbtn btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}" }
+      { method: :post, class: "retweetbtn btn btn-default btn-sm #{current_user.own?(tweet) ? 'disabled' : ''}", remote: true }
