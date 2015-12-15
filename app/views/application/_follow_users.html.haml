@@ -7,7 +7,7 @@
             = render 'follow', user: user
             = image_tag 'no_image1.png', class: "img-rounded userimage"
             .username<
-              = user.username
+              = link_to user.username, user_path(user)
           .panel-body
             %div{"style"=> "font-weight: bold;"}<
 - else

@@ -7,8 +7,8 @@
           #{t.user.username}さんがリツイート
       = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
       .content
-        %div.username
-          = tweet.user.username
+        .username
+          = link_to tweet.user.username, user_path(tweet.user)
         %div 
           = tweet.content
         %div 

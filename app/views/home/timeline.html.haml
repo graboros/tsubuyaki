@@ -5,7 +5,7 @@
         .user.panel-heading{"style"=> "background-color: #0084B4; height: 100px;"}
           = image_tag 'no_image1.png', class: "img-rounded userimage"
           .username<
-            = current_user.username
+            = link_to current_user.username, user_path(current_user)
         .panel-body
           .row{"style"=> "padding-top: 30px;"}
             .tweets.col-xs-4
