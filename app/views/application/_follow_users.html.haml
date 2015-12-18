@@ -5,7 +5,10 @@
         .panel.panel-default<
           .panel-heading{"style"=> "background-color: #0083B4; height: 90px;"}
             = render 'follow', user: user
-            = image_tag 'no_image1.png', class: "img-rounded userimage"
+            - if user.profile.present? and user.profile.image.present? 
+              = image_tag user.profile.image.url, class: "img-rounded userimage"
+            - else
+              = image_tag 'no_image1.png', class: "img-rounded userimage"
             .username<
               = link_to user.username, user_path(user)
           .panel-body

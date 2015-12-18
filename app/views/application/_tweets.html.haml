@@ -5,7 +5,10 @@
       - if t.retweeteds.present?
         .retweet_msg<
           #{t.user.username}さんがリツイート
-      = image_tag 'no_image1.png', class: "userimage img-rounded pull-left"
+      - if tweet.user.profile.present? and tweet.user.profile.image.present? 
+        = image_tag tweet.user.profile.image.url, class: "img-rounded userimage pull-left"
+      - else
+        = image_tag 'no_image1.png', class: "img-rounded userimage pull-left"
       .content
         .username
           = link_to tweet.user.username, user_path(tweet.user)

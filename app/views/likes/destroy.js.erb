@@ -1,4 +1,2 @@
 $("#tweet<%= @tweet.id %> a.likebtn").replaceWith(
   "<%= escape_javascript(render partial: 'like', locals: {tweet: @tweet}) %>");
-$(".users_likes #tweet<%= @tweet.id %>").remove();
-

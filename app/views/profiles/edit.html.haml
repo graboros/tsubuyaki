@@ -1,0 +1,16 @@
+.container{"style" => "padding-top: 15px;"}
+  .row
+    .col-xs-3
+    .col-xs-9
+      = form_for(current_user.profile || Profile.new, url: user_profile_path(current_user)) do |f|
+        .field.introduction
+          %div
+            = f.label :introduction, '自己紹介'
+          = f.text_area :introduction, rows: 5, cols: 100
+        .field.image
+          %div
+            = f.label :image, '画像'
+          = f.file_field :image
+          = f.hidden_field :image_cache
+        .actions{"style"=> "padding-top: 10px;"}
+          = f.submit '更新'

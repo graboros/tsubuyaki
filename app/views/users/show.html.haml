@@ -2,8 +2,11 @@
   .row
     .profile.col-xs-3{"id"=> "user#{@user.id}"}
       .user_show
-        = image_tag 'no_image2.png', class: "userimage img-rounded pull-left"
-        %div.username
+        - if @user.profile.present? and @user.profile.image.present? 
+          = image_tag @user.profile.image.url, class: "img-rounded userimage"
+        - else
+          = image_tag 'no_image2.png', class: "img-rounded userimage"
+        .username
           = link_to @user.username, user_path(@user)
         = render 'follow', user: @user
     .timeline.col-xs-9.list-group
@@ -17,7 +20,7 @@
         %li{"class"=> "#{user_likes_path? ? 'active' : ''}"}
           = link_to 'いいね', user_likes_url(@user)
       - if me?(@user)
-        = link_to 'プロフィール変更', edit_user_registration_path, class: "edit_profile btn btn-info"
+        = link_to 'プロフィール変更', edit_user_profile_path(current_user), class: "edit_profile btn btn-info"
       - if user_show_path? 
         = render 'tweets', tweets: @user.tweets
       - elsif user_followings_path?

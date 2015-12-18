@@ -3,7 +3,10 @@
     .profile.col-xs-3
       .user.panel.panel-default
         .panel-heading{"style"=> "background-color: #0084B4; height: 100px;"}
-          = image_tag 'no_image1.png', class: "img-rounded userimage"
+          - if current_user.profile.present? and current_user.profile.image.present? 
+            = image_tag current_user.profile.image.url, class: "img-rounded userimage"
+          - else
+            = image_tag 'no_image1.png', class: "img-rounded userimage"
           .username<
             = link_to current_user.username, user_path(current_user)
         .panel-body
@@ -28,8 +31,11 @@
                 %div<
                   = link_to current_user.followers.size, user_followers_path(current_user), { class: "listcount" }
     .timeline.col-xs-9.list-group3
-      .list-group-item{"style"=> "background-color: #E5F2F7"}
+      .list-group-item{"style"=> "background-color: #E5F2F7", class: "tweetarea"}
         - @tweet = Tweet.new
         = form_for @tweet, url: user_tweets_path(current_user) do |f|
-          = f.text_field :content, class: "tweet", placeholder: "いまどうしてる？"
+          = f.text_area :content, class: "tweet", placeholder: "いまどうしてる？", onkeyup: "tweet_keyup()", rows: "1", onfocus: "tweet_focusin()", onblur: "tweet_focusout()"
+          %span.typed_count<
+            140
+          = f.submit_tag "ツイート", class: "btn btn-primary tweetbtn"
       = render 'tweets', tweets: current_user.timeline_tweets.select{|tweet|tweet.retweeteds.empty?  }

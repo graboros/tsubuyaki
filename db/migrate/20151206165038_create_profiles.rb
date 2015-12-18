@@ -1,8 +1,8 @@
 class CreateProfiles < ActiveRecord::Migration
   def change
     create_table :profiles do |t|
+      t.references :user, index: true, foreign_key: true, null: false
       t.text :introduction
-      t.binary :image
 
       t.timestamps null: false
     end

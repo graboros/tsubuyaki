@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151212051519) do
+ActiveRecord::Schema.define(version: 20151218153823) do
 
   create_table "followings", force: :cascade do |t|
     t.integer  "following_id", limit: 4, null: false
@@ -34,11 +34,14 @@ ActiveRecord::Schema.define(version: 20151212051519) do
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4,     null: false
     t.text     "introduction", limit: 65535
-    t.binary   "image",        limit: 65535
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "image",        limit: 255
   end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "retweetings", force: :cascade do |t|
     t.integer  "tweet_id",     limit: 4, null: false
@@ -83,6 +86,7 @@ ActiveRecord::Schema.define(version: 20151212051519) do
   add_foreign_key "followings", "users", column: "following_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
+  add_foreign_key "profiles", "users"
   add_foreign_key "retweetings", "tweets"
   add_foreign_key "retweetings", "tweets", column: "retweeted_id"
   add_foreign_key "tweets", "users"

@@ -26,8 +26,25 @@
     max-width: none !important;
     width: 1280px;
   }
+  /* ツイートエリア */
+  div.tweetarea {
+    text-align: right
+  }
+  span.typed_count {
+    margin-right: 10px;
+    display: none;
+  }
+  span.typed_count.tweet_alert {
+    color: red;
+  }
+  input.tweetbtn {
+    display: none;
+  }
   /* タイムライン */
-  input[type="text"].tweet {
+  textarea {
+    resize: none;
+  }
+  textarea.tweet {
     width: 100%;
   }
   div.user {
@@ -37,6 +54,8 @@
     position: absolute;
     top: 70px;
     left: 30px;
+    width: 63px;
+    height: 63px;
   }
   div.user .username {
     position: absolute;
@@ -100,6 +119,11 @@
     position: absolute;
     top: 210px;
     font-weight: bold;
+    font-size: 16px;
+  }
+  div.user_show div.introduction{
+    position: absolute;
+    top: 310px;
     font-size: 16px;
   }
   /* ユーザ毎の画面の左側フォローボタン */
