@@ -6,12 +6,12 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body style="background-color: #F5f8fa">
+<body>
 
     <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
     <% if user_signed_in? %> 
 
-      <header style="background-color: white; height :50px;">
+      <header>
         <nav>
           <%= link_to "ホーム", root_path, class: "btn btn-primary btn-home" %>
           Logged in as <strong><%= current_user.username%></strong>.
@@ -20,7 +20,7 @@
           <span class="notice"><%= notice %></span>
           <span class="alert"><%= alert %></span>
 
-          <%= form_tag("/search", method: "post", "style"=> "display: inline", class: "search-form") do %>
+          <%= form_tag("/search", method: "post", class: "search-form") do %>
             <%= text_field_tag 'home[text]', @text, class: 'search-text', placeholder: 'Twitterを検索' %>
             <%= submit_tag "検索", class: "btn btn-primary" %>
           <% end %>

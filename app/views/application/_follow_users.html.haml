@@ -3,16 +3,15 @@
     .follow_user.clearfixt{id: "user#{user.id}"}<
       .col-xs-4<
         .panel.panel-default<
-          .panel-heading{"style"=> "background-color: #0083B4; height: 90px;"}
+          .panel-heading
             = render 'follow', user: user
             - if user.profile.present? and user.profile.image.present? 
-              = image_tag user.profile.image.url, class: "img-rounded userimage"
+              = image_tag user.profile.image.url, class: "img-rounded"
             - else
-              = image_tag 'no_image1.png', class: "img-rounded userimage"
+              = image_tag 'no_image1.png', class: "img-rounded"
             .username<
               = link_to user.username, user_path(user)
           .panel-body
-            %div{"style"=> "font-weight: bold;"}<
 - else
   .no_user.list-group-item<
     該当のユーザは存在しません

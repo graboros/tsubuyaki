@@ -1,15 +1,14 @@
-.container{"style" => "padding-top: 15px;"}
+.users_show.container
   .row
     .profile.col-xs-3{"id"=> "user#{@user.id}"}
-      .user_show
-        - if @user.profile.present? and @user.profile.image.present? 
-          = image_tag @user.profile.image.url, class: "img-rounded userimage"
-        - else
-          = image_tag 'no_image2.png', class: "img-rounded userimage"
-        .username
-          = link_to @user.username, user_path(@user)
-        = render 'follow', user: @user
-    .timeline.col-xs-9.list-group
+      - if @user.profile.present? and @user.profile.image.present? 
+        = image_tag @user.profile.image.url, class: "img-rounded"
+      - else
+        = image_tag 'no_image2.png', class: "img-rounded"
+      .username
+        = link_to @user.username, user_path(@user)
+      = render 'follow', user: @user
+    .tweets.col-xs-9.list-group
       %ul.nav.nav-tabs
         %li{"class"=> "#{user_show_path? ? 'active' : ''}"}
           = link_to 'ツイート', user_url(@user)
@@ -22,7 +21,8 @@
       - if me?(@user)
         = link_to 'プロフィール変更', edit_user_profile_path(current_user), class: "edit_profile btn btn-info"
       - if user_show_path? 
-        = render 'tweets', tweets: @tweets
+        .users_tweets<
+          = render 'tweets', tweets: @tweets
         .list-group-item.morearea
           = link_to_next_page(@tweets, 'more', remote: true, id: 'view_more')
       - elsif user_followings_path?
@@ -32,7 +32,7 @@
         .users_followers<
           = render 'follow_users', users: @user.followers
       - elsif user_likes_path?
-        .users_likes<
+        .users_likes.tweets<
           = render 'tweets', tweets: @like_tweets
           .list-group-item.like_morearea
             = link_to_next_page(@like_tweets, 'more', remote: true, id: 'like_view_more', param_name: 'likepage')

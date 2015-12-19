@@ -1,37 +1,37 @@
-.container{"style" => "padding-top: 15px;"}
+.timeline.container
   .row
     .profile.col-xs-3
       .user.panel.panel-default
-        .panel-heading{"style"=> "background-color: #0084B4; height: 100px;"}
+        .panel-heading
           - if current_user.profile.present? and current_user.profile.image.present? 
-            = image_tag current_user.profile.image.url, class: "img-rounded userimage"
+            = image_tag current_user.profile.image.url, class: "img-rounded"
           - else
-            = image_tag 'no_image1.png', class: "img-rounded userimage"
+            = image_tag 'no_image1.png', class: "img-rounded"
           .username<
             = link_to current_user.username, user_path(current_user)
         .panel-body
-          .row{"style"=> "padding-top: 30px;"}
-            .tweets.col-xs-4
+          .row
+            .tweets_count.col-xs-4
               %div<
                 %small<
                   %div<
                     ツイート
                 %div<
                   = link_to current_user.tweets.size, user_path(current_user), { class: "tweetcount listcount" }
-            .following.col-xs-4
+            .following_count.col-xs-4
               %div<
                 %small<
                   フォロー
                 %div<
                   = link_to current_user.followings.size, user_followings_path(current_user), { class: "listcount" }
-            .follower.col-xs-4
+            .follower_count.col-xs-4
               %div<
                 %small<
                   フォロワー
                 %div<
                   = link_to current_user.followers.size, user_followers_path(current_user), { class: "listcount" }
-    .timeline.col-xs-9.list-group3
-      .list-group-item{"style"=> "background-color: #E5F2F7", class: "tweetarea"}
+    .tweets.col-xs-9.list-group3
+      .tweetarea.list-group-item
         - @tweet = Tweet.new
         = form_for @tweet, url: user_tweets_path(current_user) do |f|
           = f.text_area :content, class: "tweet", placeholder: "いまどうしてる？", onkeyup: "tweet_keyup()", rows: "1", onfocus: "tweet_focusin()", onblur: "tweet_focusout()"
@@ -39,5 +39,5 @@
             140
           = f.submit_tag "ツイート", class: "btn btn-primary tweetbtn"
       = render 'tweets', tweets: @timeline_tweets
-      .list-group-item.morearea
+      .morearea.list-group-item
         = link_to_next_page(@timeline_tweets, 'more', remote: true, id: 'view_more')

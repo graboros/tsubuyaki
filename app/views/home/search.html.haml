@@ -1,7 +1,7 @@
-.container{"style" => "padding-top: 15px;"}
+.search.container{"style" => "padding-top: 15px;"}
   .row
-    .profile.col-xs-3
-    .timeline.col-xs-9.list-group3
+    .col-xs-3
+    .tweets.col-xs-9.list-group3
       .list-group-item{"style"=> "background-color: #E5F2F7"}
         = @text + " の検索結果"
       = render 'tweets', tweets: Tweet.where('content LIKE ?', "%#{@text}%" )
