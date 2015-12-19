@@ -1,11 +1,12 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :render_when_signed_in, only: [:index]
 
   def index
-  end
+    if user_signed_in?
+      @timeline_tweets = current_user.timeline_tweets params[:page] || 1 
+      render 'timeline' 
+    end
 
-  def timeline
   end
 
   def search
@@ -18,9 +19,6 @@ class HomeController < ApplicationController
   end
 
 private
-  def render_when_signed_in
-    render 'timeline' if user_signed_in?
-  end
   def text_param
     params.require(:home).permit(:text)
   end

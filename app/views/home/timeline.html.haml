@@ -38,4 +38,6 @@
           %span.typed_count<
             140
           = f.submit_tag "ツイート", class: "btn btn-primary tweetbtn"
-      = render 'tweets', tweets: current_user.timeline_tweets.select{|tweet|tweet.retweeteds.empty?  }
+      = render 'tweets', tweets: @timeline_tweets
+      .list-group-item.morearea
+        = link_to_next_page(@timeline_tweets, 'more', remote: true, id: 'view_more')

@@ -22,10 +22,10 @@ class User < ActiveRecord::Base
          :authentication_keys => [:login]
   attr_accessor :login
 
-  def timeline_tweets
+  def timeline_tweets(page)
     timeline_users = self.followings.to_a << self
-    Tweet.where(user: timeline_users).order(updated_at: :desc)
-  end
+    Tweet.includes(:retweeteds).where(user: timeline_users).where(retweetings: {id: nil}).order(updated_at: :desc).page page
+ end
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
