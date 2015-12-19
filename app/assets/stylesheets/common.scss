@@ -1,0 +1,31 @@
+.notice, .alert {
+  position: absolute;
+  top: 15px;
+  left: 430px;
+}
+
+.container, nav {
+  max-width: none !important;
+  width: 1280px;
+}
+.btn-home {
+  margin: 10px;
+}
+.search-form {
+  margin-left: 420px;
+}
+.search-text {
+  width: 300px;
+}
+/* ツイートエリア */
+div.tweetarea {
+  text-align: right
+}
+/* タイムライン、ツイート、フォロー、フォロワー全てのユーザ名 */
+div.username a {
+  color: black;
+}
+/* ユーザが存在しません、フォローがありませんメッセージ */
+div.no_user, div.no_tweet {
+  height: 200px;
+}
