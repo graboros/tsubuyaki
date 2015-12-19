@@ -4,6 +4,7 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @like_tweets = @user.like_tweets.page params[:likepage] || 1
     render "users/show"
   end
 

@@ -22,7 +22,9 @@
       - if me?(@user)
         = link_to 'プロフィール変更', edit_user_profile_path(current_user), class: "edit_profile btn btn-info"
       - if user_show_path? 
-        = render 'tweets', tweets: @user.tweets
+        = render 'tweets', tweets: @tweets
+        .list-group-item.morearea
+          = link_to_next_page(@tweets, 'more', remote: true, id: 'view_more')
       - elsif user_followings_path?
         .users_followings<
           = render 'follow_users', users: @user.followings
@@ -31,4 +33,6 @@
           = render 'follow_users', users: @user.followers
       - elsif user_likes_path?
         .users_likes<
-          = render 'tweets', tweets: @user.like_tweets
+          = render 'tweets', tweets: @like_tweets
+          .list-group-item.like_morearea
+            = link_to_next_page(@like_tweets, 'more', remote: true, id: 'like_view_more', param_name: 'likepage')
