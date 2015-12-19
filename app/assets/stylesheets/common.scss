@@ -33,7 +33,9 @@ div.username {
 div.no_user, div.no_tweet {
   height: 200px;
 }
-
+textarea {
+  resize: none;
+}
 div.container, nav {
   max-width: none !important;
   width: 1280px;
@@ -66,11 +68,17 @@ div.timeline, div.users_show, div.search {
       }
       div.content {
         display: inline-block;
+        word-break: break-all;
         padding-left: 10px;
+        width: 800px;
         div.username {
           font-weight: bold;
         }
       }
     }
   }
+}
+
+div.timeline, div.users_show, div.edit_profile, div.search {
+  padding-top: 15px;
 }

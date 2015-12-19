@@ -13,7 +13,7 @@
         .username
           = link_to tweet.user.username, user_path(tweet.user)
         %div 
-          = tweet.content
+          = simple_format tweet.content
         %div 
           = render 'retweet', tweet: tweet
           = render 'like', tweet: tweet

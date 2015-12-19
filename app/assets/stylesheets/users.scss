@@ -1,13 +1,11 @@
 div.users_show {
-  padding-top: 15px;
-
   div.tweets {
     a.edit_profile {
       position: absolute;
       top: 0px;
       left: 770px;
     }
- }
+  }
 
   div.users_followings, div.users_followers {
     div.follow_user {
@@ -25,6 +23,14 @@ div.users_show {
         font-weight: bold;
         font-size: 16px;
       }
+      div.introduction {
+        position: absolute;
+        width: 270px;
+        top: 170px;
+        left: 30px;
+        font-size: 16px;
+        word-break: break-all;
+      }
       a.followbtn {
         position: absolute;
         top: 100px;
@@ -35,28 +41,23 @@ div.users_show {
   }
 
   div.profile {
-    position: relative;
-
+    * {
+      padding-bottom: 5px;
+    }
     img {
-      position: absolute;
       top: 0;
       width: 200px;
     }
-
     div.username {
-      position: absolute;
-      top: 210px;
       font-weight: bold;
       font-size: 16px;
     }
     div.introduction {
-      position: absolute;
-      top: 310px;
+      word-break: break-all;
+      width: 250px;
       font-size: 16px;
     }
     a.followbtn {
-      position: absolute;
-      top: 240px;
       width: 200px;
     }
   }

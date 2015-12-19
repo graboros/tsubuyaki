@@ -1,4 +1,4 @@
-.container{"style" => "padding-top: 15px;"}
+.container.edit_profile
   .row
     .col-xs-3
     .col-xs-9
@@ -6,11 +6,11 @@
         .field.introduction
           %div
             = f.label :introduction, '自己紹介'
-          = f.text_area :introduction, rows: 5, cols: 100
+          = f.text_area :introduction, rows: 4, cols: 30
         .field.image
           %div
             = f.label :image, '画像'
           = f.file_field :image
           = f.hidden_field :image_cache
-        .actions{"style"=> "padding-top: 10px;"}
+        .actions
           = f.submit '更新'

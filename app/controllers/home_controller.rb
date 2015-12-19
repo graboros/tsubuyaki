@@ -10,10 +10,10 @@ class HomeController < ApplicationController
   end
 
   def search
-    @text = text_param["text"]
+    @text = text_param[:text]
 
     unless @text.present?
-      render 'timeline'
+      redirect_to root_url
     end
 
   end

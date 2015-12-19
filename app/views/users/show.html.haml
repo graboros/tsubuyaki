@@ -7,6 +7,9 @@
         = image_tag 'no_image2.png', class: "img-rounded"
       .username
         = link_to @user.username, user_path(@user)
+      - if @user.profile.present? and @user.profile.introduction.present?
+        %span.introduction
+          = simple_format @user.profile.introduction
       = render 'follow', user: @user
     .tweets.col-xs-9.list-group
       %ul.nav.nav-tabs

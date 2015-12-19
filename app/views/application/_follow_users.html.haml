@@ -11,6 +11,8 @@
               = image_tag 'no_image1.png', class: "img-rounded"
             .username<
               = link_to user.username, user_path(user)
+            .introduction<
+              = simple_format user.profile.introduction
           .panel-body
 - else
   .no_user.list-group-item<
