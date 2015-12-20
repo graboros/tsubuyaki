@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   has_many :followers, through: :followed_relationships, source: :following
   has_many :following_relationships, class_name: "Following", foreign_key: "following_id"
   has_many :followings, through: :following_relationships, source: :follower
-  validates :username, uniqueness: { case_sensitive: false }
+  validates :username, uniqueness: { case_sensitive: false }, length: { minimum: 3 }
+  validates_presence_of :username
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,

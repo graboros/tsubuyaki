@@ -8,13 +8,13 @@ class TweetsController < ApplicationController
     if params[:content].present?
       @tweet = current_user.tweets.build(params)
       if @tweet.save 
-        redirect_to root_url, notice: "ツイートに成功しました"
+        msg_option = { notice: "ツイートしました" }
       else
-        redirect_to root_url, alert: "ツイート失敗しました"
+        msg_option = { alert: "ツイートに失敗しました" }
       end
-    else
-      redirect_to root_url
     end
+
+    redirect_to root_url, msg_option || {}
   end
 
   def destroy
@@ -28,7 +28,7 @@ class TweetsController < ApplicationController
   end
 
   def unretweet
-    Tweet::unretweet(current_user, @tweet)
+    Tweet.unretweet(current_user, @tweet)
   end
 
 private

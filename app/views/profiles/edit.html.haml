@@ -6,11 +6,11 @@
         .field.introduction
           %div
             = f.label :introduction, '自己紹介'
-          = f.text_area :introduction, rows: 4, cols: 30
+          = f.text_area :introduction, rows: 4, cols: 40
         .field.image
           %div
             = f.label :image, '画像'
           = f.file_field :image
           = f.hidden_field :image_cache
         .actions
-          = f.submit '更新'
+          = f.submit '保存'

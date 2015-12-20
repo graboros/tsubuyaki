@@ -3,6 +3,7 @@ class Profile < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
   validates :user_id, uniqueness: true
+  validates :introduction, length: { maximum: 60 }
 
   def update_with_params(params)
     if params[:image].present?

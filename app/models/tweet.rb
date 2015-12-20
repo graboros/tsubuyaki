@@ -12,6 +12,8 @@ class Tweet < ActiveRecord::Base
   has_many :retweeted_relationships, class_name: "Retweeting", foreign_key: "retweeted_id", dependent: :destroy
   has_many :retweets, through: :retweeted_relationships
 
+  validates :content, length: { maximum: 140 }
+
   def self.unretweet(user, tweet)
     # current_userから引くと以下のコメントのようにtweets経由で取りに行かないといけなって、結果ループにしないといけなくなりそうなので、しょうがないからSQLを使って消す
     # ? current_user.tweets.retweetings.find_by!(retweet: get_tweet).destroy_all

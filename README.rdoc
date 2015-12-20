@@ -1,5 +1,5 @@
 == Application URL
-https://sgtsubuyaki.herokuapp.com/
+https://tsubuyakisg.herokuapp.com/
 
 == データモデル・画面・リソース設計資料
 https://docs.google.com/presentation/d/13OTW9ryQtVJ8Vw5n4djnkV4ljEQcER5kPKBbnuTH7Mo/edit#slide=id.p
