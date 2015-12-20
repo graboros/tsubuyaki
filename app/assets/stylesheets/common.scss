@@ -4,13 +4,22 @@ body {
 
 header {
   background-color: white;
-  height: 50px;
+  height: 60px;
 
   nav {
-    span.notice, span.alert {
+    span.alert {
       position: absolute;
-      top: 15px;
+    }
+    span.alert.signedin {
+      top: 5px;
       left: 430px;
+    }
+    span.alert.signedout {
+      top: 5px;
+      left: 70px;
+    }
+    span.alert.dispnone {
+      display: none;
     }
     a.btn-home {
       margin: 10px;
