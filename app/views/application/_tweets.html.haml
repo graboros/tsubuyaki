@@ -11,7 +11,7 @@
         = image_tag 'no_image1.png', class: "img-rounded pull-left"
       .content
         .username
-          = link_to tweet.user.username, user_path(tweet.user)
+          = link_to tweet.user.username, tweet.user
         %div 
           = simple_format tweet.content
         %div 

@@ -6,7 +6,7 @@
       - else
         = image_tag 'no_image2.png', class: "img-rounded"
       .username
-        = link_to @user.username, user_path(@user)
+        = link_to @user.username, @user
       - if @user.profile.present? and @user.profile.introduction.present?
         %span.introduction
           = simple_format @user.profile.introduction

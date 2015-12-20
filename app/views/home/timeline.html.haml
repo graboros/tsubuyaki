@@ -8,7 +8,7 @@
           - else
             = image_tag 'no_image1.png', class: "img-rounded"
           .username<
-            = link_to current_user.username, user_path(current_user)
+            = link_to current_user.username, current_user
         .panel-body
           .row
             .tweets_count.col-xs-4
@@ -17,7 +17,7 @@
                   %div<
                     ツイート
                 %div<
-                  = link_to current_user.tweets.size, user_path(current_user), { class: "tweetcount listcount" }
+                  = link_to current_user.tweets.size, current_user, { class: "tweetcount listcount" }
             .following_count.col-xs-4
               %div<
                 %small<
@@ -33,7 +33,7 @@
     .tweets.col-xs-9.list-group3
       .tweetarea.list-group-item
         - @tweet = Tweet.new
-        = form_for @tweet, url: user_tweets_path(current_user) do |f|
+        = form_for @tweet, url: [current_user, @tweet] do |f|
           = f.text_area :content, class: "tweet", placeholder: "いまどうしてる？", onkeyup: "tweet_keyup()", rows: "1", onfocus: "tweet_focusin()", onblur: "tweet_focusout()"
           %span.typed_count<
             140
