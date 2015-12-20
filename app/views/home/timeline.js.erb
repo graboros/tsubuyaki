@@ -1,2 +1,2 @@
-$(".morearea").before("<%= escape_javascript(render 'tweets', tweets: @timeline_tweets) %>");
-$("#view_more").replaceWith("<%= escape_javascript(link_to_next_page(@timeline_tweets, 'more', remote: true, id: 'view_more')) %>")
+$(".morearea").before("<%= escape_javascript(render 'tweets', tweets: @timeline_tweets) %>")
+              .replaceWith("<%= escape_javascript(render 'more', tweets: @timeline_tweets) %>");

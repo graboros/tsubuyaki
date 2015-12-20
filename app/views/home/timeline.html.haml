@@ -26,5 +26,5 @@
             140
           = f.submit_tag "ツイート", class: "btn btn-primary tweetbtn"
       = render 'tweets', tweets: @timeline_tweets
-      .morearea.list-group-item
-        = link_to_next_page(@timeline_tweets, 'more', remote: true, id: 'view_more')
+      = render 'more', tweets: @timeline_tweets , options: {remote: true, id: 'view_more'}, classname: 'morearea'
+

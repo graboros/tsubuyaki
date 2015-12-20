@@ -26,8 +26,7 @@
       - if user_show_path? 
         .users_tweets<
           = render 'tweets', tweets: @tweets
-        .list-group-item.morearea
-          = link_to_next_page(@tweets, 'more', remote: true, id: 'view_more')
+          = render 'more', tweets: @tweets, options: {remote: true, id: 'view_more'}, classname: 'morearea'
       - elsif user_followings_path?
         .users_followings<
           = render 'follow_users', users: @user.followings
@@ -37,5 +36,4 @@
       - elsif user_likes_path?
         .users_likes.tweets<
           = render 'tweets', tweets: @like_tweets
-          .list-group-item.like_morearea
-            = link_to_next_page(@like_tweets, 'more', remote: true, id: 'like_view_more', param_name: 'likepage')
+          = render 'more', tweets: @like_tweets, options: {remote: true, id: 'like_view_more', param_name: 'likepage'}, classname: 'like_morearea'

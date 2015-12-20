@@ -1,10 +1,9 @@
 <% if @tweets.present? %>
-  $(".morearea").before("<%= escape_javascript(render 'tweets', tweets: @tweets) %>");
-  $("#view_more").replaceWith("<%= escape_javascript(link_to_next_page(@tweets, 'more', remote: true, id: 'view_more')) %>")
+  $(".morearea").before("<%= escape_javascript(render 'tweets', tweets: @tweets) %>")
+                .replaceWith("<%= escape_javascript(render 'more', tweets: @tweets, options: {remote: true, id: 'view_more'}) %>")
 <% end %>
 
 <% if @like_tweets.present? %>
-
-    $(".like_morearea").before("<%= escape_javascript(render 'tweets', tweets: @like_tweets) %>");
-    $("#like_view_more").replaceWith("<%= escape_javascript(link_to_next_page(@like_tweets, 'more', remote: true, id: 'like_view_more')) %>")
+  $(".like_morearea").before("<%= escape_javascript(render 'tweets', tweets: @like_tweets) %>")
+                .replaceWith("<%= escape_javascript(render 'more', tweets: @like_tweets, options: {remote: true, id: 'like_view_more', param_name: 'likepage'}) %>")
 <% end %>
