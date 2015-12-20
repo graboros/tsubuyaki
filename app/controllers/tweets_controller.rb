@@ -4,8 +4,9 @@ class TweetsController < ApplicationController
   before_action :current_users_tweet, only: %i(destroy)
 
   def create
-    if tweet_params[:content].present?
-      @tweet = current_user.tweets.build(tweet_params)
+    params = tweet_params
+    if params[:content].present?
+      @tweet = current_user.tweets.build(params)
       if @tweet.save 
         redirect_to root_url, notice: "ツイートに成功しました"
       else

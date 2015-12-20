@@ -12,9 +12,9 @@ class ProfilesController < ApplicationController
   def update
     params = profile_params
     if params[:image].present?
-      result = current_user.profile.update(profile_params)
+      result = current_user.profile.update(params)
     else
-      result = current_user.profile.update_except_for_image(profile_params)
+      result = current_user.profile.update_except_for_image(params)
     end
 
     render 'edit'
