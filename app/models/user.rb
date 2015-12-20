@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
 
   has_many :likes
   has_many :like_tweets, ->{order("likes.created_at DESC")}, through: :likes
-  #has_many :retweeted_relationships, through: :retweeting
   has_many :retweeteds, through: :tweets
 
   has_many :followed_relationships, class_name: "Following", foreign_key: "followed_id"
