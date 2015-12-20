@@ -1,4 +1,4 @@
-- unless me?(user)
+- if user_signed_in? and not me?(user)
   - if current_user.following?(user)
     = link_to 'フォロー中', user_following_url(current_user, user), { method: :delete, class: "followbtn btn btn-info", remote: true }
   - else

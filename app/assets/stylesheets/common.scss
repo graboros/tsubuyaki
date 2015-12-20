@@ -25,10 +25,18 @@ header {
   }
 }
 
-div.username {
-  a {
-    color: black;
+div.toppage {
+  height: 300px;
+  div.login {
+    padding-bottom: 10px;
   }
+  div.login a, div.signin a {
+    width: 300px;
+  }
+}
+
+div.username a {
+  color: black;
 }
 div.no_user, div.no_tweet {
   height: 200px;

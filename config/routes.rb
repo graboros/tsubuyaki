@@ -16,5 +16,6 @@ Rails.application.routes.draw do
     resources :followings, only: [:index, :create, :destroy]
     resource :profile, only: [:edit, :create, :update]
   end
+  # ヘルパーの名前をfollowingsと同じようにして、actionをfollowingsと同じコントローラに入れるためにはmatchを使うしかなかった
   match "users/:user_id/followers", to: 'followings#followers_index', via: :get, as: :user_followers
 end

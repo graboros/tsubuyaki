@@ -7,9 +7,9 @@ class TweetsController < ApplicationController
     if tweet_params[:content].present?
       @tweet = current_user.tweets.build(tweet_params)
       if @tweet.save 
-        redirect_to root_url
+        redirect_to root_url, notice: "ツイートに成功しました"
       else
-
+        redirect_to root_url, alert: "ツイート失敗しました"
       end
     else
       redirect_to root_url
@@ -32,9 +32,7 @@ class TweetsController < ApplicationController
 
 private
   def  current_users_tweet
-    if @tweet.user != current_user
-       redirect_to timeline_url, notice: 'このツイートを更新または削除できません'
-    end
+    redirect_to root_url, alert: 'このツイートを更新または削除できません' unless @tweet.user == current_user
   end
 
   def set_tweet

@@ -1,12 +1,10 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
 
   def index
     if user_signed_in?
       @timeline_tweets = current_user.timeline_tweets(params[:page] || 1)
       render 'timeline' 
     end
-
   end
 
   def search
@@ -15,7 +13,6 @@ class HomeController < ApplicationController
     unless @text.present?
       redirect_to root_url
     end
-
   end
 
 private
