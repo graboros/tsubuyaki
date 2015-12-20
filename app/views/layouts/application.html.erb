@@ -8,12 +8,11 @@
 </head>
 <body>
 
-    <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
   <header>
     <nav>
     <% if user_signed_in? %> 
       <%= link_to "ホーム", root_path, class: "btn btn-primary btn-home" %>
-      Logged in as <strong><%= current_user.username%></strong>.
+      Logged in as <strong><%= current_user.username %></strong>.
       <%= link_to '設定(ユーザ情報)', edit_user_registration_path %> |
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
       <span class="notice"><%= notice %></span>

@@ -12,10 +12,10 @@ class Tweet < ActiveRecord::Base
   has_many :retweeted_relationships, class_name: "Retweeting", foreign_key: "retweeted_id", dependent: :destroy
   has_many :retweets, through: :retweeted_relationships
 
-  def self.unretweet(user_id, tweet_id)
-    # current_userから引くと以下のようにtweets経由で取りに行かないといけななり、ループにしないといけなくなりそうなので、しょうがないからSQLで消す
+  def self.unretweet(user, tweet)
+    # current_userから引くと以下のコメントのようにtweets経由で取りに行かないといけなって、結果ループにしないといけなくなりそうなので、しょうがないからSQLを使って消す
     # ? current_user.tweets.retweetings.find_by!(retweet: get_tweet).destroy_all
-    self.where("tweets.user_id = ?", user_id).joins("LEFT JOIN retweetings On tweets.id = retweetings.tweet_id").where("retweetings.retweeted_id = ?", tweet_id).destroy_all
+    self.where("tweets.user_id = ?", user.id).joins("LEFT JOIN retweetings On tweets.id = retweetings.tweet_id").where("retweetings.retweeted_id = ?", tweet.id).destroy_all
   end
 
 end

@@ -4,6 +4,15 @@ class Profile < ActiveRecord::Base
 
   validates :user_id, uniqueness: true
 
+  def update_with_params(params)
+    if params[:image].present?
+      result = self.update(params)
+    else
+      result = self.update_except_for_image(params)
+    end
+    result
+  end
+
   def update_except_for_image(profile_params)
     self.update(introduction: profile_params[:introduction])
   end

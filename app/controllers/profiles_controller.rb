@@ -11,11 +11,7 @@ class ProfilesController < ApplicationController
 
   def update
     params = profile_params
-    if params[:image].present?
-      result = current_user.profile.update(params)
-    else
-      result = current_user.profile.update_except_for_image(params)
-    end
+    result = current_user.profile.update_with_params(params)
 
     render 'edit'
   end
@@ -27,8 +23,4 @@ private
   def profile_params
     params.require(:profile).permit(:introduction, :image, :image_cache, :remove_image)
   end
-  # FIXME: idが自分じゃなかったら404みたいなのを入れる
-  # def set_user
-  #   @user = User.find(params[:id])
-  # end
 end

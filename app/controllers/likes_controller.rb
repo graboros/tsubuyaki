@@ -1,9 +1,9 @@
 class LikesController < ApplicationController
-  before_action :set_user, only: %i(index)
   before_action :authenticate_user!, :set_tweet, only: %i(create destroy)
+  before_action :set_user, only: %i(index)
 
   def index
-    @like_tweets = @user.like_tweets.page params[:likepage] || 1
+    @like_tweets = @user.like_tweets.page(params[:likepage])
     render "users/show"
   end
 

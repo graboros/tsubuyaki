@@ -11,10 +11,7 @@ class User < ActiveRecord::Base
   has_many :followers, through: :followed_relationships, source: :following
   has_many :following_relationships, class_name: "Following", foreign_key: "following_id"
   has_many :followings, through: :following_relationships, source: :follower
-  validates :username,
-    uniqueness: {
-      case_sensitive: false
-    }
+  validates :username, uniqueness: { case_sensitive: false }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -23,16 +20,7 @@ class User < ActiveRecord::Base
 
   def timeline_tweets(page)
     timeline_users = self.followings.to_a << self
-    Tweet.includes(:retweeteds).where(user: timeline_users).where(retweetings: {id: nil}).order(updated_at: :desc).page page
- end
-
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(["username = :value OR lower(email) = lower(:value)", { :value => login }]).first
-    else
-      where(conditions).first
-    end
+    Tweet.includes(:retweeteds).where(user: timeline_users).where(retweetings: {id: nil}).order(updated_at: :desc).page(page)
   end
 
   def liked?(tweet)
@@ -41,11 +29,19 @@ class User < ActiveRecord::Base
   def own?(tweet)
     self.tweets.include?(tweet)
   end
-
   def retweeting?(tweet)
     self.retweeteds.include?(tweet)
   end
   def following?(user)
     self.followings.include?(user)
+  end
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["username = :value OR lower(email) = lower(:value)", { :value => login }]).first
+    else
+      where(conditions).first
+    end
   end
 end

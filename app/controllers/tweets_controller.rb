@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i(destroy retweet unretweet)
   before_action :authenticate_user!
-  before_action :current_users_tweet, only: %i(destroy)
+  before_action :set_tweet, only: %i(destroy retweet unretweet)
+  before_action :redirect_unless_mine, only: %i(destroy)
 
   def create
     params = tweet_params
@@ -28,16 +28,16 @@ class TweetsController < ApplicationController
   end
 
   def unretweet
-    Tweet::unretweet(current_user.id, @tweet)
+    Tweet::unretweet(current_user, @tweet)
   end
 
 private
-  def  current_users_tweet
-    redirect_to root_url, alert: 'このツイートを更新または削除できません' unless @tweet.user == current_user
-  end
-
   def set_tweet
     @tweet = Tweet.find(params[:id])
+  end
+
+  def  redirect_unless_mine
+   redirect_to root_url, alert: 'このツイートを削除できません' unless current_user.own?(@tweet)
   end
 
   def tweet_params
