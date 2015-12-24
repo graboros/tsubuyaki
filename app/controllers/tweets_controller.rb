@@ -22,9 +22,13 @@ class TweetsController < ApplicationController
   end
 
   def retweet
-    @retweet = current_user.tweets.build()
-    @retweeted = @retweet.retweeting_relationships.build(retweeted: @tweet)
-    @retweet.save
+    unless current_user.retweeting?(@tweet)
+      @retweet = current_user.tweets.build()
+      @retweeted = @retweet.retweeting_relationships.build(retweeted: @tweet)
+      @retweet.save
+    else
+      @retweet = @tweet.retweets.find_by(user_id: current_user)
+    end
   end
 
   def unretweet
