@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Tsubuyaki
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %header
+      %nav
+        - if user_signed_in?
+          %span.signedin
+            = link_to "ホーム", root_path, class: "btn btn-primary btn-home"
+            Logged in as
+            = succeed "." do
+              %strong= current_user.username
+            = link_to '設定(ユーザ情報)', edit_user_registration_path
+            |
+            \#{link_to "ログアウト", destroy_user_session_path, method: :delete}
+        - else
+          %span.signedout
+            = link_to "トップ", root_path, class: "btn btn-primary btn-home"
+        %span{:class => "alert alert-info #{notice.blank? ? 'dispnone' : ""}"}= notice
+        %span{:class => "alert alert-danger #{alert.blank? ? 'dispnone' : ""}"}= alert
+        = form_tag("/search", method: "post", class: "search-form") do
+          = text_field_tag 'home[text]', @text, class: 'search-text', placeholder: 'Twitterを検索'
+          = submit_tag "検索", class: "btn btn-primary"
+    = yield
