@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 
   def index
     if user_signed_in?
-      @timeline_tweets = current_user.timeline_tweets(params[:page])
+      @timeline_tweets = current_user.timeline_tweets.page(params[:page])
       render 'timeline'
     end
   end

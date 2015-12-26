@@ -19,9 +19,9 @@ class User < ActiveRecord::Base
          :authentication_keys => [:login]
   attr_accessor :login
 
-  def timeline_tweets(page)
+  def timeline_tweets
     timeline_users = self.followings.to_a << self
-    Tweet.includes(:retweeteds).where(user: timeline_users).where(retweetings: {id: nil}).order(updated_at: :desc).page(page)
+    Tweet.includes(:retweeteds).where(user: timeline_users).where(retweetings: {id: nil}).order(updated_at: :desc)
   end
 
   def liked?(tweet)
