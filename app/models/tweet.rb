@@ -12,6 +12,7 @@ class Tweet < ActiveRecord::Base
   has_many :retweeted_relationships, class_name: "Retweeting", foreign_key: "retweeted_id", dependent: :destroy
   has_many :retweets, through: :retweeted_relationships
 
+  validates :user, presence: true
   validates :content, length: { maximum: 140 }
 
   def self.unretweet(user, tweet)

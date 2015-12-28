@@ -2,7 +2,20 @@
 
 FactoryGirl.define do
   factory :tweet do
-    content "MyString"
-    retweet ""
+
+    factory :tweet1 do
+      user :user1
+      content "MyString"
+    end
+
+    factory :long_tweet do
+      user :user1
+      content "aaaaaaaaaaiiiiiiiiiiuuuuuuuuuueeeeeeeeeeuuuuuuuuuuooooooooookkkkkkkkkkssssssssssttttttttttnnnnnnnnnnhhhhhhhhhhmmmmmmmmmmyyyyyyyyyyrrrrrrrrrr"
+    end
+
+    factory :too_long_tweet do
+      user :user1
+      content "aaaaaaaaaaiiiiiiiiiiuuuuuuuuuueeeeeeeeeeuuuuuuuuuuooooooooookkkkkkkkkkssssssssssttttttttttnnnnnnnnnnhhhhhhhhhhmmmmmmmmmmyyyyyyyyyyrrrrrrrrrrz"
+    end
   end
 end

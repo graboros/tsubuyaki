@@ -29,14 +29,14 @@ RSpec.describe User, :type => :model do
     expect(user).to be_valid
   end
 
-  it "is invalid when the username was taken" do
+  it "is invalid with a duplicate username" do
     create(:user1, username: "takashi")
     user = build(:user2,  username: "takashi")
     user.valid?
     expect(user.errors[:username]).to include("has already been taken")
   end
 
-  it "is invalid when the email was taken" do
+  it "is invalid with a duplicate email" do
     create(:user1, email: "takashi2003_jp@yahoo.co.jp" )
     user = build(:user2, email: "takashi2003_jp@yahoo.co.jp")
     user.valid?
