@@ -28,4 +28,5 @@ RSpec.describe Tweet, :type => :model do
     tweet.valid?
     expect(tweet.errors[:content]).to include("is too long (maximum is 140 characters)")
   end
+
 end
