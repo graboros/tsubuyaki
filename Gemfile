@@ -16,18 +16,21 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'carrierwave'
 gem 'kaminari'
+gem 'sprockets-rails', '2.3.3'
 
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails', '~> 3.0'
+  gem 'hirb'
+  gem 'hirb-unicode'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'spring'
+  gem 'spring', '~> 1.5.0'
   gem 'quiet_assets'
 end
 
