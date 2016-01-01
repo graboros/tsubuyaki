@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_one :profile
 
   has_many :tweets, ->{order("created_at DESC")}
+  has_many :messages, ->{order("created_at DESC")}
 
   has_many :likes
   has_many :like_tweets, ->{order("likes.created_at DESC")}, through: :likes

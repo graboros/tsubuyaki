@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151218153823) do
+ActiveRecord::Schema.define(version: 20160101110306) do
 
   create_table "followings", force: :cascade do |t|
     t.integer  "following_id", limit: 4, null: false
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20151218153823) do
 
   add_index "likes", ["tweet_id"], name: "index_likes_on_tweet_id", using: :btree
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4,     null: false
+    t.integer  "sendto_id",  limit: 4,     null: false
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "messages", ["sendto_id"], name: "index_messages_on_sendto_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id",      limit: 4,     null: false
@@ -86,6 +97,8 @@ ActiveRecord::Schema.define(version: 20151218153823) do
   add_foreign_key "followings", "users", column: "following_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "users"
+  add_foreign_key "messages", "users", column: "sendto_id"
   add_foreign_key "profiles", "users"
   add_foreign_key "retweetings", "tweets"
   add_foreign_key "retweetings", "tweets", column: "retweeted_id"
