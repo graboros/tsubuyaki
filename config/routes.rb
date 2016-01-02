@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root to: "home#index"
   post "search" => "home#search"
 
+
   resources :users, only: [:show] do 
     resources :tweets, only: [:create, :destroy] do
       member do
@@ -15,7 +16,14 @@ Rails.application.routes.draw do
     resources :likes, only: [:index, :create, :destroy]
     resources :followings, only: [:index, :create, :destroy]
     resource :profile, only: [:edit, :create, :update]
+
+    resource :dm, only: [] do
+      resources :messages, only: [:index, :create]
+    end
   end
+
+  get :dmusers, controller: :messages
+
   # ヘルパーの名前をfollowingsと同じようにして、actionをfollowingsと同じコントローラに入れるためにはmatchを使うしかなかった
   match "users/:user_id/followers", to: 'followings#followers_index', via: :get, as: :user_followers
 end

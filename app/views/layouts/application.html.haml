@@ -12,6 +12,7 @@
         - if user_signed_in?
           %span.signedin
             = link_to "ホーム", root_path, class: "btn btn-primary btn-home"
+            = link_to "メッセージ", dmusers_path, class: "btn btn-primary btn-message"
             Logged in as
             = succeed "." do
               %strong= current_user.username

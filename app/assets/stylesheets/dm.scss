@@ -1,0 +1,15 @@
+div.dm {
+  padding-top: 10px;
+  img {
+    height: 40px;
+    width: 40px;
+  }
+  div.detail {
+    height: 60px;
+    div.content {
+      display: inline-block;
+      word-break: break-all;
+      padding-left: 10px;
+    }
+  }
+}

@@ -22,11 +22,14 @@ header {
       display: none;
     }
     a.btn-home {
-      margin: 10px;
+      margin: 10px 0px 10px 10px;
+    }
+    a.btn-message {
+      margin: 10px 10px 10px 0px;
     }
     form.search-form {
       display: inline;
-      margin-left: 420px;
+      margin-left: 320px;
     }
     input.search-text {
       width: 300px;

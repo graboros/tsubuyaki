@@ -17,7 +17,7 @@
               = render 'timeline_count', name: "フォロー", count: current_user.followings.size, path: user_followings_path(current_user)
             .follower_count.col-xs-4
               = render 'timeline_count', name: "フォロワー", count: current_user.followers.size, path: user_followers_path(current_user)
-    .tweets.col-xs-9.list-group3
+    .tweets.col-xs-9.list-group
       .tweetarea.list-group-item
         - @tweet = Tweet.new
         = form_for @tweet, url: [current_user, @tweet] do |f|

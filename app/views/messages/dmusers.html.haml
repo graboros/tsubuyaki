@@ -1,0 +1,19 @@
+.dm.container
+  .row 
+    .col-xs-12.list-group
+      .dmarea.list-group-item
+        ダイレクトメッセージ
+      -if @users.any?
+        - @users.each do |user|
+          .detail.list-group-item.clearfixt<
+            = link_to user_dm_messages_path(user) do
+              - if user.profile.present? and user.profile.image.present? 
+                = image_tag user.profile.image.url, class: "img-rounded pull-left"
+              - else
+                = image_tag 'no_image1.png', class: "img-rounded pull-left"
+              .content
+                .username<
+                  = user.username
+      - else
+        .no_dm.list-group-item<
+          該当のダイレクトメッセージは存在しません
