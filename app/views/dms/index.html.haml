@@ -2,9 +2,12 @@
   .row 
     .col-xs-12.list-group
       .dmarea.list-group-item
-        ダイレクトメッセージ
-      -if @users.any?
-        - @users.each do |user|
+        .dmtitle<
+          ダイレクトメッセージ
+        .dmshow<
+          = link_to "メッセージを作成", new_dm_path, class: "btn btn-primary btn-home"
+      -if @dms.any?
+        - @dms.each do |dm|
           .detail.list-group-item.clearfixt<
             = link_to user_dm_messages_path(user) do
               - if user.profile.present? and user.profile.image.present? 

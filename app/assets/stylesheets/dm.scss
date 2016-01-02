@@ -1,5 +1,16 @@
 div.dm {
   padding-top: 10px;
+  div.dmtitle {
+    font-size: 20px;
+  }
+  div.dmarea {
+    height: 50px;
+    div.dmshow {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+    }
+  }
   img {
     height: 40px;
     width: 40px;

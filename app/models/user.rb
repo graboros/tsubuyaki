@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :tweets, ->{order("created_at DESC")}
 
-  has_many :to_messages, ->{order("created_at DESC")}, class_name: "Message", foreign_key: "sendto_id"
+  has_many :dmusers, ->{order("created_at DESC")}, class_name: "DmUser"
 
   has_many :likes
   has_many :like_tweets, ->{order("likes.created_at DESC")}, through: :likes

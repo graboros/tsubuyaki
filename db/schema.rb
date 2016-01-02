@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160101110306) do
+ActiveRecord::Schema.define(version: 20160102102019) do
+
+  create_table "dm_users", force: :cascade do |t|
+    t.integer  "dm_id",      limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "dm_users", ["dm_id"], name: "index_dm_users_on_dm_id", using: :btree
+  add_index "dm_users", ["user_id"], name: "index_dm_users_on_user_id", using: :btree
+
+  create_table "dms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "followings", force: :cascade do |t|
     t.integer  "following_id", limit: 4, null: false
@@ -32,17 +47,6 @@ ActiveRecord::Schema.define(version: 20160101110306) do
 
   add_index "likes", ["tweet_id"], name: "index_likes_on_tweet_id", using: :btree
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
-
-  create_table "messages", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4,     null: false
-    t.integer  "sendto_id",  limit: 4,     null: false
-    t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "messages", ["sendto_id"], name: "index_messages_on_sendto_id", using: :btree
-  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id",      limit: 4,     null: false
@@ -93,12 +97,12 @@ ActiveRecord::Schema.define(version: 20160101110306) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "dm_users", "dms"
+  add_foreign_key "dm_users", "users"
   add_foreign_key "followings", "users", column: "followed_id"
   add_foreign_key "followings", "users", column: "following_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
-  add_foreign_key "messages", "users"
-  add_foreign_key "messages", "users", column: "sendto_id"
   add_foreign_key "profiles", "users"
   add_foreign_key "retweetings", "tweets"
   add_foreign_key "retweetings", "tweets", column: "retweeted_id"
