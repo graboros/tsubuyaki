@@ -5,18 +5,12 @@
         .dmtitle<
           ダイレクトメッセージ
         .dmshow<
-          = link_to "メッセージを作成", new_dm_path, class: "btn btn-primary btn-home"
+          = link_to "メッセージを作成", dms_users_path, class: "btn btn-primary btn-home"
       -if @dms.any?
         - @dms.each do |dm|
           .detail.list-group-item.clearfixt<
-            = link_to user_dm_messages_path(user) do
-              - if user.profile.present? and user.profile.image.present? 
-                = image_tag user.profile.image.url, class: "img-rounded pull-left"
-              - else
-                = image_tag 'no_image1.png', class: "img-rounded pull-left"
-              .content
-                .username<
-                  = user.username
+            = link_to dm_path(dm) do
+              = sendto_usernames(dm.users)
       - else
         .no_dm.list-group-item<
           該当のダイレクトメッセージは存在しません

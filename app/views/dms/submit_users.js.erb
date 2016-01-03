@@ -1,0 +1,2 @@
+$("div.dmusers").html("<%= escape_javascript(render partial: 'users', locals: {search_text: @search_text, userarray: @userarray}) %>");
+$("div.dmsearcharea input[type=text]").val("");

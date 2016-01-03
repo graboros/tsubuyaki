@@ -15,11 +15,13 @@ Rails.application.routes.draw do
     resources :likes, only: [:index, :create, :destroy]
     resources :followings, only: [:index, :create, :destroy]
     resource :profile, only: [:edit, :create, :update]
-
   end
 
-  resources :dms, only: [:index, :show, :new] do
+  resources :dms, only: [:index, :show, :new, :create, :update] do
     resources :messages, only: [:create], controller: :dms
+  end
+  resource :dmsusers, to: "dms#select_users", as: :dms_users, only: [:show] do
+    post :submit_users, to: "dms#submit_users", as: :submit
   end
 
   # ヘルパーの名前をfollowingsと同じようにして、actionをfollowingsと同じコントローラに入れるためにはmatchを使うしかなかった

@@ -1,4 +1,13 @@
-.toppage.jumbotron
-  .container
-    %p<
-      dm
+.dm.container
+  .row
+    .list-group-item
+      .dmtitle<
+        = "ダイレクトメッセージ送信（#{sendto_usernames(@dm.users)}）"
+      .dmshow<
+    - @dm.dmmessages.each do |msg|
+      .list-group-item
+        = msg.content
+    .dmsearcharea.list-group-item
+      = form_tag dm_path(@dm), method: :put do
+        = text_field_tag :content
+        = submit_tag "送信", class: "btn btn-primary dmsearchbtn"

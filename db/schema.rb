@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102102019) do
+ActiveRecord::Schema.define(version: 20160103102019) do
 
   create_table "dm_users", force: :cascade do |t|
     t.integer  "dm_id",      limit: 4
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20160102102019) do
 
   add_index "dm_users", ["dm_id"], name: "index_dm_users_on_dm_id", using: :btree
   add_index "dm_users", ["user_id"], name: "index_dm_users_on_user_id", using: :btree
+
+  create_table "dmmessages", force: :cascade do |t|
+    t.integer  "dm_id",      limit: 4
+    t.integer  "user_id",    limit: 4
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "dmmessages", ["dm_id"], name: "index_dmmessages_on_dm_id", using: :btree
+  add_index "dmmessages", ["user_id"], name: "index_dmmessages_on_user_id", using: :btree
 
   create_table "dms", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -99,6 +110,8 @@ ActiveRecord::Schema.define(version: 20160102102019) do
 
   add_foreign_key "dm_users", "dms"
   add_foreign_key "dm_users", "users"
+  add_foreign_key "dmmessages", "dms"
+  add_foreign_key "dmmessages", "users"
   add_foreign_key "followings", "users", column: "followed_id"
   add_foreign_key "followings", "users", column: "following_id"
   add_foreign_key "likes", "tweets"
