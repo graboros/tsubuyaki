@@ -15,6 +15,7 @@ class DmsController < ApplicationController
 
     if params[:searchbtn].present? 
       @search_text = params[:search_text]
+
     elsif params[:nextbtn].present?
       @userarray.try(:delete, current_user.id)
 
@@ -38,6 +39,7 @@ class DmsController < ApplicationController
     msg = @dm.dmmessages.build()
     msg.content = params[:content]
     msg.user = current_user
+
     if msg.save
       redirect_to dm_path(@dm), notice: "メッセージを追加しました"
     else
@@ -47,10 +49,13 @@ class DmsController < ApplicationController
 
   def create
     content = params[:content]
+
     if content.present?
       dm = Dm.find_or_create_by_users(@users << current_user)
       dm.try(:add_content_with_user, params[:content], current_user)
+
       if dm.save
+        session[:message_to] = nil
         redirect_to dm_url(dm)
       else
         render :new, alert: "メッセージの登録に失敗しました"
@@ -59,15 +64,18 @@ class DmsController < ApplicationController
       render :new, alert: "メッセージの内容を入力してください"
     end
   end
+
 private
   def redirect_when_users_not_selected
     unless session[:message_to].present?
       redirect_to dms_users_path, alert: "メッセージの送付先を選択してください"
     end
   end
+
   def set_dm
     @dm = Dm.find(params[:id])
   end
+
   def set_users_from_session
     @users = User.where(id: session[:message_to]).order(:id)
   end

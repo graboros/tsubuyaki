@@ -12,10 +12,12 @@ class Dm < ActiveRecord::Base
     unless users.present? 
       nil
     else
-      dm = Dm.new
-      users.each do |user|
-        dm_user = dm.dm_users.build()
-        dm_user.user = user
+      dm = self.find_same_users_dm(users) || Dm.new
+      if dm.new_record?
+        users.each do |user|
+          dm_user = dm.dm_users.build()
+          dm_user.user = user
+        end
       end
       dm
     end
@@ -23,5 +25,10 @@ class Dm < ActiveRecord::Base
 
   def add_content_with_user(content, user)
    self.dmmessages.build(content: content, user: user)
+  end
+
+private
+  def self.find_same_users_dm(users)
+    Dm.all.select{|dm| dm.dm_users.map{|dm_user| dm_user.user_id}.to_set == users.map{|user| user.id}.to_set}.try(:first)
   end
 end
