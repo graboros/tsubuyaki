@@ -15,3 +15,4 @@ this.tweet_focusout= ->
   if typedCount is 0
     $("textarea.tweet").prop("rows", "1")
     $("span.typed_count,input.tweetbtn").css("display", "none")
+

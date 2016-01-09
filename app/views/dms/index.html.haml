@@ -1,16 +1,14 @@
-.dm.container
-  .row 
-    .col-xs-12.list-group
-      .dmarea.list-group-item
-        .dmtitle<
-          ダイレクトメッセージ
-        .dmshow<
-          = link_to "メッセージを作成", dms_users_path, class: "btn btn-primary btn-home"
-      -if @dms.any?
-        - @dms.each do |dm|
-          .detail.list-group-item.clearfixt<
-            = link_to dm_path(dm) do
-              = sendto_usernames(dm.users)
-      - else
-        .no_dm.list-group-item<
-          該当のダイレクトメッセージは存在しません
+- content_for :title_area do
+  .dmtitle<
+    ダイレクトメッセージ
+  .dmshow<
+    = link_to "メッセージを作成", dms_users_path, class: "btn btn-primary btn-home"
+-if @dms.any?
+  - @dms.each do |dm|
+    .list-group-item<
+      = link_to dm_path(dm) do
+        = sendto_usernames(dm.users)
+      = "(#{dm.updated_at.to_s(:time_default)})"
+- else
+  .no_dm.list-group-item<
+    該当のダイレクトメッセージは存在しません

@@ -1,26 +1,28 @@
 div.dm {
   padding-top: 10px;
-  div.dmtitle {
-    font-size: 20px;
-  }
-  div.dmarea {
+  div.titlearea {
     height: 50px;
+    div.dmtitle {
+      font-size: 20px;
+    }
     div.dmshow {
       position: absolute;
       top: 7px;
       right: 7px;
     }
   }
-  img {
-    height: 40px;
-    width: 40px;
-  }
   div.detail {
-    height: 60px;
+    overflow-y: auto;
+    height: 380px;
+    div.username {
+      font-weight: bold;
+    }
     div.content {
-      display: inline-block;
       word-break: break-all;
       padding-left: 10px;
     }
+  }
+  input.message {
+    width: 500px;
   }
 }

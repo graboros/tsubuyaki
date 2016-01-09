@@ -1,0 +1,9 @@
+- content_for :content do
+  .dm.container
+    .row 
+      .col-xs-12.list-group
+        .titlearea.list-group-item
+          = yield :title_area
+        = yield
+
+= render template: 'layouts/application'

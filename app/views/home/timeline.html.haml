@@ -24,7 +24,7 @@
           = f.text_area :content, class: "tweet", placeholder: "いまどうしてる？", onkeyup: "tweet_keyup()", rows: "1", onfocus: "tweet_focusin()", onblur: "tweet_focusout()"
           %span.typed_count<
             140
-          = f.submit_tag "ツイート", class: "btn btn-primary tweetbtn"
+          = f.submit "ツイート", class: "btn btn-primary tweetbtn"
       = render 'tweets', tweets: @timeline_tweets
       = render 'more', tweets: @timeline_tweets , options: {remote: true, id: 'view_more'}, classname: 'morearea'
 

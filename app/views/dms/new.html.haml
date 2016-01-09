@@ -1,10 +1,5 @@
-.dm.container
-  .row
-    .list-group-item
-      .dmtitle<
-        = "ダイレクトメッセージ送信（#{sendto_usernames(@users)}）"
-      .dmshow<
-    .dmsearcharea.list-group-item
-      = form_tag dms_path, method: :post do
-        = text_field_tag :content
-        = submit_tag "送信", class: "btn btn-primary dmsearchbtn"
+- content_for :title_area do
+  .dmtitle<
+    = "ダイレクトメッセージ送信（#{sendto_usernames(@users)}）"
+.list-group-item
+  = render 'message_input', action: "create", method: :post

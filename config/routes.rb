@@ -17,9 +17,12 @@ Rails.application.routes.draw do
     resource :profile, only: [:edit, :create, :update]
   end
 
-  resources :dms, only: [:index, :show, :new, :create, :update] do
-    resources :messages, only: [:create], controller: :dms
+  resources :dms, only: [:index, :show, :new, :create] do
+    member do
+      post :add_message
+    end
   end
+
   resource :dmsusers, to: "dms#select_users", as: :dms_users, only: [:show] do
     post :submit_users, to: "dms#submit_users", as: :submit
   end

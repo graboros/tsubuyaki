@@ -27,4 +27,4 @@
         = form_tag("/search", method: "post", class: "search-form") do
           = text_field_tag 'home[text]', @text, class: 'search-text', placeholder: 'Twitterを検索'
           = submit_tag "検索", class: "btn btn-primary"
-    = yield
+    = content_for?(:content) ? yield(:content) : yield 

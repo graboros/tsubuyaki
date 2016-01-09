@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :tweets, ->{order("created_at DESC")}
 
   has_many :dmusers, ->{order("created_at DESC")}, class_name: "DmUser"
+  has_many :dms, ->{order("updated_at DESC")}, through: :dmusers
 
   has_many :likes
   has_many :like_tweets, ->{order("likes.created_at DESC")}, through: :likes
@@ -38,9 +39,6 @@ class User < ActiveRecord::Base
     self.followings.include?(user)
   end
 
-  def hasMessagesFrom
-    self.to_messages.select(:user_id).uniq.map{|message| message.user}
-  end
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

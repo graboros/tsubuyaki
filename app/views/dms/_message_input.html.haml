@@ -1,0 +1,3 @@
+= form_for :dmmessage, url: { controller: "dms", action: action}, html: { method: method } do |f|
+  = f.text_field :content, class: "message", placeholder: "メッセージを入力してください"
+  = f.submit "送信", class: "btn btn-primary dmsearchbtn", onclick: "return check_content_present();"
