@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :like do
     user nil
-    tweet nil
+    like_tweet nil
   end
 end

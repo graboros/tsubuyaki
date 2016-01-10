@@ -4,7 +4,6 @@ FactoryGirl.define do
   factory :tweet do
 
     factory :tweet1 do
-      user :user1
       content "MyString"
     end
 

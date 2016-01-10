@@ -20,8 +20,9 @@ gem 'sprockets-rails', '2.3.3'
 
 group :development, :test do
   gem 'byebug'
+  gem 'faker'
   gem 'rspec-rails', '~> 3.1'
-  gem 'factory_girl_rails', '~> 3.0'
+  gem 'database_cleaner'
   gem 'hirb'
   gem 'hirb-unicode'
 end
@@ -33,6 +34,10 @@ group :development do
   gem 'spring', '~> 1.5.0'
   gem 'spring-commands-rspec'
   gem 'quiet_assets'
+end
+
+group :test do
+  gem 'factory_girl_rails', '~> 4.5.0'
 end
 
 gem 'rails_12factor', group: :production
