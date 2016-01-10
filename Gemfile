@@ -20,7 +20,7 @@ gem 'sprockets-rails', '2.3.3'
 
 group :development, :test do
   gem 'byebug'
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 3.1'
   gem 'factory_girl_rails', '~> 3.0'
   gem 'hirb'
   gem 'hirb-unicode'
