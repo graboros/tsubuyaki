@@ -1,7 +1,7 @@
 class DmsController < ApplicationController
   before_action :authenticate_user!
   before_action :redirect_when_users_not_selected, :set_users_from_session, only: %i(new create)
-  before_action :set_dm, only: %i(show add_message)
+  before_action :set_dm, :redirect_when_dm_is_not_mine, only: %i(show add_message)
 
   layout 'dms_layout'
 
@@ -13,17 +13,17 @@ class DmsController < ApplicationController
   end
 
   def submit_users
-    @userarray = params[:user]
+    @user_array = params[:user]
 
     if params[:searchbtn].present? 
       @search_text = params[:search_text]
 
     elsif params[:nextbtn].present?
-      @userarray.try(:delete, current_user.id)
 
-      if @userarray.present?
-        @userarray.uniq!
-        session[:message_to] = @userarray
+      if @user_array.present?
+        @user_array.delete(current_user.id)
+        @user_array.uniq!
+        session[:message_to] = @user_array
         render js: "window.location = '#{new_dm_url}'";
       else
         render js: 'alert("メッセージ送付先を選択してください");';
@@ -66,15 +66,22 @@ private
     end
   end
 
-  def set_dm
-    @dm = Dm.find(params[:id])
-  end
-
   def set_users_from_session
     @users = User.where(id: session[:message_to]).order(:id)
+  end
+
+  def set_dm
+    @dm = Dm.find(params[:id])
   end
 
   def message_params
     params.require(:dmmessage).permit(:content)
   end
+
+  def redirect_when_dm_is_not_mine
+    unless @dm.users.include?(current_user)
+      redirect_to dms_url, alert: "権限のないDMにアクセスされました"
+    end
+  end
+
 end

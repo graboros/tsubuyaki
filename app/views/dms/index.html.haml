@@ -1,7 +1,7 @@
 - content_for :title_area do
   .dmtitle<
     ダイレクトメッセージ
-  .dmshow<
+  .dmnew<
     = link_to "メッセージを作成", dms_users_path, class: "btn btn-primary btn-home"
 -if @dms.any?
   - @dms.each do |dm|

@@ -4,19 +4,17 @@ class Dm < ActiveRecord::Base
   has_many :users, through: :dm_users
   has_many :dmmessages, dependent: :destroy
 
+  # 引数のusersはコントローラ側でnilにならないことを保証
+  # その前提が成り立つならば、戻り値のdmもnilにならないことが保証される
   def self.find_or_create_by_users(users)
-    unless users.present? 
-      nil
-    else
-      dm = self.find_same_users_dm(users) || Dm.new
-      if dm.new_record?
-        users.each do |user|
-          dm_user = dm.dm_users.build()
-          dm_user.user = user
-        end
+    dm = self.find_same_users_dm(users) || Dm.new
+    if dm.new_record?
+      users.each do |user|
+        dm_user = dm.dm_users.build()
+        dm_user.user = user
       end
-      dm
     end
+    dm
   end
 
 private
