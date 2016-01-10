@@ -31,6 +31,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'spring', '~> 1.5.0'
+  gem 'spring-commands-rspec'
   gem 'quiet_assets'
 end
 
