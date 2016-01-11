@@ -2,7 +2,7 @@ class Profile < ActiveRecord::Base
   belongs_to :user
   mount_uploader :image, ImageUploader
 
-  validates :user_id, uniqueness: true
+  validates :user_id, presence: true, uniqueness: true
   validates :introduction, length: { maximum: 60 }
 
   def update_with_params(params)

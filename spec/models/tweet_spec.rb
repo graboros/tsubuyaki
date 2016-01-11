@@ -29,4 +29,26 @@ RSpec.describe Tweet, :type => :model do
     expect(tweet.errors[:content]).to include("is too long (maximum is 140 characters)")
   end
 
+  describe "unretweet" do
+    before :each do 
+      @user2 = create(:user2)
+      @tweet1 = create(:tweet, user: @user, content: nil)
+      @tweet2 = create(:tweet, user: @user2)
+      @tweet3 = create(:tweet, user: @user2)
+      create(:retweeting, retweet: @tweet1, retweeted: @tweet2)
+    end
+
+    it "deletes the retweeting in the database with retweeted tweet" do
+      expect {
+        Tweet.unretweet(@user, @tweet2)
+      }.to change(Retweeting, :count).by(-1)
+    end
+
+    it "does not delete the retweeting in the database with not retweeted tweet" do
+      expect {
+        Tweet.unretweet(@user, @tweet3)
+      }.not_to change(Retweeting, :count)
+    end
+  end
+
 end

@@ -55,7 +55,7 @@ RSpec.describe User, :type => :model do
       @user1.following_relationships.find_or_create_by!(follower: @user2)
     end
 
-    it "include own tweets and followings tweets" do
+    it "includes own tweets and followings tweets" do
       expect(@user1.timeline_tweets).to include(@tweet1, @tweet2, @tweet3)
     end
 
@@ -77,16 +77,68 @@ RSpec.describe User, :type => :model do
       @tweet2 = create(:tweet, user: @user2)
     end
 
-    it "return true with own tweet" do
+    it "returns true with own tweet" do
       expect(@user1.own?(@tweet1)).to be_truthy
     end
 
-    it "return false with others tweet" do
+    it "returns false with others tweet" do
       expect(@user1.own?(@tweet2)).to be_falsey
     end
 
-    it "return false with nil" do
+    it "returns false with nil" do
       expect(@user1.own?(@tweet2)).to be_falsey
+    end
+  end
+
+  describe "liked?" do
+    before :each do 
+      @user1 = create(:user1)
+      @user2 = create(:user2)
+      @tweet2 = create(:tweet, user: @user2)
+      create(:like, user: @user1, like_tweet: @tweet2)
+    end
+
+    it "returns true with liked tweet" do
+      expect(@user1.liked?(@tweet2)).to be_truthy
+    end
+
+    it "returns false with not liked tweet" do
+      expect(@user2.liked?(@tweet2)).to be_falsey
+    end
+  end
+
+  describe "retweeting?" do
+    before :each do 
+      @user1 = create(:user1)
+      @user2 = create(:user2)
+      @tweet1 = create(:tweet, user: @user1, content: nil)
+      @tweet2 = create(:tweet, user: @user2)
+      @tweet3 = create(:tweet, user: @user2)
+      create(:retweeting, retweet: @tweet1, retweeted: @tweet2)
+    end
+
+    it "returns true with retweeted tweet" do
+      expect(@user1.retweeting?(@tweet2)).to be_truthy
+    end
+
+    it "returns false with not retweeted tweet" do
+      expect(@user1.retweeting?(@tweet3)).to be_falsey
+    end
+  end
+
+  describe "following?" do
+    before :each do 
+      @user1 = create(:user1)
+      @user2 = create(:user2)
+      create(:following, following: @user1, follower: @user2)
+    end
+
+    it "returns true with following user" do
+      expect(@user1.following?(@user2)).to be_truthy
+    end
+
+    it "returns false with not following user" do
+      expect(@user2.following?(@user1)).to be_falsey
     end
   end
 end
