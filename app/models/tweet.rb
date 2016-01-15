@@ -15,8 +15,10 @@ class Tweet < ActiveRecord::Base
   validates :user, presence: true
   validates :content, length: { maximum: 140 }
 
-  def self.unretweet(user, tweet)
-    self.where("tweets.user_id = ?", user.id).joins("LEFT JOIN retweetings On tweets.id = retweetings.tweet_id").where("retweetings.retweeted_id = ?", tweet.id).destroy_all
+  # def self.unretweet(user, tweet)
+  def unretweet(user)
+    retweet = self.retweets.find_by(user: user)
+    retweet.try(:destroy)
   end
 
 end

@@ -19,6 +19,6 @@ class Dm < ActiveRecord::Base
 
 private
   def self.find_same_users_dm(users)
-    Dm.all.select{|dm| dm.dm_users.map{|dm_user| dm_user.user_id}.to_set == users.map{|user| user.id}.to_set}.try(:first)
+    self.all.select{|dm| dm.dm_users.map{|dm_user| dm_user.user_id}.to_set == users.map{|user| user.id}.to_set}.try(:first)
   end
 end

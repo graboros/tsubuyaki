@@ -36,7 +36,7 @@ class TweetsController < ApplicationController
   end
 
   def unretweet
-    Tweet.unretweet(current_user, @tweet)
+    @tweet.unretweet(current_user)
   end
 
 private
