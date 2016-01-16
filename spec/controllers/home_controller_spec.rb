@@ -35,6 +35,10 @@ RSpec.describe HomeController, :type => :controller do
   describe "POST #search" do
 
     context "with a empty text" do
+      before do
+        request.env["HTTP_REFERER"] = root_url
+      end
+
       it "redirects to root url" do
         post :search, home: { text: "" }
         expect(response).to redirect_to root_url

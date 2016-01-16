@@ -1,3 +1,3 @@
 $("#tweet<%= @retweet.retweeteds.first.id %> a.retweetbtn").replaceWith(
-  "<%= escape_javascript(render partial: 'retweet', locals: {tweet: @retweet.retweeteds.first}) %>");
+  "<%= escape_javascript(render 'retweet', tweet: @retweet.retweeteds.first) %>");
 $("div.tweets_count a").text("<%= current_user.tweets.size %>")

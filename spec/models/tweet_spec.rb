@@ -40,13 +40,13 @@ RSpec.describe Tweet, :type => :model do
 
     it "deletes the retweeting in the database with retweeted tweet" do
       expect {
-        Tweet.unretweet(@user, @tweet2)
+        @tweet2.unretweet(@user)
       }.to change(Retweeting, :count).by(-1)
     end
 
     it "does not delete the retweeting in the database with not retweeted tweet" do
       expect {
-        Tweet.unretweet(@user, @tweet3)
+        @tweet3.unretweet(@user)
       }.not_to change(Retweeting, :count)
     end
   end

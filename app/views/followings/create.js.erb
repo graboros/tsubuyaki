@@ -1,2 +1,2 @@
 $("#user<%= @user.id %> a.followbtn").replaceWith(
-  "<%= escape_javascript(render partial: 'follow', locals: {user: @user}) %>");
+  "<%= escape_javascript(render 'follow', user: @user) %>");
