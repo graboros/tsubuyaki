@@ -21,10 +21,10 @@ Rails.application.routes.draw do
     member do
       post :add_message
     end
-  end
-
-  resource :dmsusers, to: "dms#select_users", as: :dms_users, only: [:show] do
-    post :submit_users, to: "dms#submit_users", as: :submit
+    collection do
+      get :select_users
+      post :submit_users
+    end
   end
 
   # ヘルパーの名前をfollowingsと同じようにして、actionをfollowingsと同じコントローラに入れるためにはmatchを使うしかなかった

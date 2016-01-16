@@ -2,9 +2,10 @@
   .dmtitle<
     ダイレクトメッセージ
   .dmnew<
-    = link_to "メッセージを作成", dms_users_path, class: "btn btn-primary btn-home"
--if @dms.any?
-  - @dms.each do |dm|
+    = link_to "メッセージを作成", select_users_dms_path, class: "btn btn-primary btn-home"
+- dms = current_user.dms
+- if dms.any?
+  - dms.each do |dm|
     .list-group-item<
       = link_to dm_path(dm) do
         = sendto_usernames(dm.users)

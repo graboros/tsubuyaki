@@ -6,7 +6,34 @@ class DmsController < ApplicationController
   layout 'dms_layout'
 
   def index
-    @dms = current_user.dms
+  end
+
+  def show
+  end
+
+  def new
+  end
+
+  def add_message
+    msg = @dm.dmmessages.build(content: message_params[:content], user: current_user)
+
+    if msg.save
+      redirect_to @dm, notice: "メッセージを追加しました"
+    else
+      redirect_to @dm, alert: "メッセージの追加に失敗しました"
+    end
+  end
+
+  def create
+    dm = Dm.find_or_create_by_users(current_user, @users << current_user)
+    dm.dmmessages.build(content: message_params[:content], user: current_user)
+
+    if dm.save
+      session[:message_to] = nil
+      redirect_to dm
+    else
+      redirect_to new_dm_url, alert: "メッセージの登録に失敗しました"
+    end
   end
 
   def select_users
@@ -30,35 +57,6 @@ class DmsController < ApplicationController
       end
     end
   end
-
-  def show
-  end
-
-  def new
-  end
-
-  def add_message
-    msg = @dm.dmmessages.build(content: message_params[:content], user: current_user)
-
-    if msg.save
-      redirect_to @dm, notice: "メッセージを追加しました"
-    else
-      redirect_to @dm, alert: "メッセージの追加に失敗しました"
-    end
-  end
-
-  def create
-    dm = Dm.find_or_create_by_users(@users << current_user)
-    dm.dmmessages.build(content: message_params[:content], user: current_user)
-
-    if dm.save
-      session[:message_to] = nil
-      redirect_to dm
-    else
-      redirect_to new_dm_url, alert: "メッセージの登録に失敗しました"
-    end
-  end
-
 private
   def redirect_when_users_not_selected
     unless session[:message_to].present?

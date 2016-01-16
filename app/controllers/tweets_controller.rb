@@ -29,7 +29,7 @@ class TweetsController < ApplicationController
 
     @retweet = @tweet.retweets.find_or_initialize_by(user: current_user)
     if @retweet.new_record?
-      @retweeted = @retweet.retweeting_relationships.build(retweeted: @tweet)
+      @retweet.retweeting_relationships.build(retweeted: @tweet)
       @retweet.save
     end
   end

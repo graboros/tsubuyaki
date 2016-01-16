@@ -2,8 +2,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @profile = Profile.new(profile_params)
-    @profile.user = current_user
+    @profile = current_user.build_profile(profile_params)
     if @profile.save
       redirect_to edit_user_profile_url(current_user), notice: 'プロフィールを登録しました'
     else
