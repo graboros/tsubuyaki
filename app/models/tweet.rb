@@ -1,5 +1,6 @@
 class Tweet < ActiveRecord::Base
   belongs_to :user
+  counter_culture :user
   has_many :likes, dependent: :destroy
 
   # 以下のdependentを入れることでリツイート解除された時に、リツイートしているというAssociationを削除できるようにする

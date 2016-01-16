@@ -1,4 +1,4 @@
--if users.any?
+-if users.present?
   - users.each do |user|
     .follow_user.clearfixt{id: "user#{user.id}"}<
       .col-xs-4<

@@ -52,7 +52,7 @@ RSpec.describe User, :type => :model do
       @user2 = create(:user2)
       @tweet3 = create(:tweet, user: @user2)
 
-      @user1.following_relationships.find_or_create_by!(follower: @user2)
+      @user1.followed_relationships.find_or_create_by!(following: @user2)
     end
 
     it "includes own tweets and followings tweets" do
@@ -130,7 +130,7 @@ RSpec.describe User, :type => :model do
     before :each do 
       @user1 = create(:user1)
       @user2 = create(:user2)
-      create(:following, following: @user1, follower: @user2)
+      create(:following, following: @user2, follower: @user1)
     end
 
     it "returns true with following user" do

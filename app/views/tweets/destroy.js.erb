@@ -1,2 +1,2 @@
 $("#tweet<%= @tweet.id %>").remove()
-$("div.tweets_count a").text("<%= current_user.tweets.size %>")
+$("div.tweets_count a").text("<%= current_user.tweets_count-1 %>")

@@ -17,6 +17,7 @@ gem 'twitter-bootstrap-rails'
 gem 'carrierwave'
 gem 'kaminari'
 gem 'sprockets-rails', '2.3.3'
+gem 'counter_culture'
 
 group :development, :test do
   gem 'byebug'

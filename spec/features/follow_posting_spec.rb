@@ -8,7 +8,7 @@ feature "Follow Posting" do
     create(:tweet1, user: @user2, content: "てすとツイート")
 
     @user3 = create(:user3)
-    create(:following, following: user, follower: @user3) 
+    create(:following, following: @user3, follower: user) 
   }
 
 

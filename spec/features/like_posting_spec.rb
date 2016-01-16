@@ -11,7 +11,7 @@ feature "Like Posting" do
     @tweet3 = tweet = create(:tweet1, user: @user3, content: "てすとツイート2")
     create(:like, user: user, like_tweet: @tweet3)
 
-    create(:following, following: user, follower: @user2) 
+    create(:following, following: @user2, follower: user) 
   }
 
 

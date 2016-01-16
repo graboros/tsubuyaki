@@ -10,7 +10,7 @@ feature "Retweet Posting" do
     @user3 = create(:user3)
     @tweet3 = tweet = create(:tweet1, user: @user3, content: "てすとツイート2")
 
-    create(:following, following: user, follower: @user2) 
+    create(:following, following: @user2, follower: user) 
 
     @tweet1 = create(:tweet1, user: user, content: "nil")
     create(:retweeting, retweet: @tweet1, retweeted: @tweet3)

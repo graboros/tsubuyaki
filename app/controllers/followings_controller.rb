@@ -11,11 +11,11 @@ class FollowingsController < ApplicationController
   end
 
   def create
-    current_user.following_relationships.find_or_create_by!(follower: @user)
+    current_user.followed_relationships.find_or_create_by!(following: @user)
   end
 
   def destroy
-    current_user.following_relationships.find_by!(follower: @user).destroy
+    current_user.followed_relationships.find_by!(following: @user).destroy
   end
 
 private
