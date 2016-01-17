@@ -64,9 +64,9 @@ RSpec.describe TweetsController, :type => :controller do
         }.not_to change(Tweet, :count)
       end
 
-      it "redirects to the root_url" do
+      it "exec js (addAlert function)" do
         delete :destroy, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
-        expect(response).to redirect_to root_url
+        expect(response.content_type).to eq Mime::JS
       end
     end
   end

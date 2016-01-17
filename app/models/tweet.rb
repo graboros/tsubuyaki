@@ -16,7 +16,6 @@ class Tweet < ActiveRecord::Base
   validates :user, presence: true
   validates :content, length: { maximum: 140 }
 
-  # def self.unretweet(user, tweet)
   def unretweet(user)
     retweet = self.retweets.find_by(user: user)
     retweet.try(:destroy)

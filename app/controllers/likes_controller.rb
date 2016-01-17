@@ -8,7 +8,10 @@ class LikesController < ApplicationController
   end
 
   def create
-    current_user.likes.find_or_create_by!(like_tweet: @tweet)
+    @like = current_user.likes.find_or_initialize_by(like_tweet: @tweet)
+    unless @like.save
+      render js: 'addAlert("いいねの登録に失敗しました");'
+    end
   end
 
   def destroy

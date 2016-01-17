@@ -11,7 +11,10 @@ class FollowingsController < ApplicationController
   end
 
   def create
-    current_user.followed_relationships.find_or_create_by!(following: @user)
+    @following = current_user.followed_relationships.find_or_initialize_by(following: @user)
+    unless @following.save
+      render js: 'addAlert("フォローに失敗しました");'
+    end
   end
 
   def destroy
