@@ -25,15 +25,31 @@
         = link_to 'プロフィール変更', edit_user_profile_path(current_user), class: "edit_profile btn btn-info"
       - if user_show_path? 
         .users_tweets<
-          = render 'tweets', tweets: @tweets
+          - if @tweets.any?
+            = render @tweets
+          - else
+            .no_tweet.list-group-item<
+              該当のツイートは存在しません
           = render 'more', tweets: @tweets, options: {remote: true, id: 'view_more'}, classname: 'morearea'
       - elsif user_followings_path?
         .users_followings<
-          = render 'follow_users', users: @user.followings
+          -if @user.followings.present?
+            = render @user.followings
+          - else
+            .no_user.list-group-item<
+              フォロー中のユーザは存在しません
       - elsif user_followers_path?
         .users_followers<
-          = render 'follow_users', users: @user.followers
+          -if @user.followers.present?
+            = render @user.followers
+          - else
+            .no_user.list-group-item<
+              フォロワーは存在しません
       - elsif user_likes_path?
         .users_likes.tweets<
-          = render 'tweets', tweets: @like_tweets
+          - if @like_tweets.any?
+            = render @like_tweets
+          - else
+            .no_tweet.list-group-item<
+              いいねを登録したツイートは存在しません
           = render 'more', tweets: @like_tweets, options: {remote: true, id: 'like_view_more', param_name: 'likepage'}, classname: 'like_morearea'

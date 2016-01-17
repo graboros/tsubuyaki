@@ -1,0 +1,18 @@
+- target_tweet = tweet.retweeteds.present? ? tweet.retweeteds.first : tweet
+.detail.list-group-item.clearfixt{id: "tweet#{target_tweet.id}"}<
+  - if tweet.retweeteds.present?
+    .retweet_msg<
+      #{tweet.user.username}さんがリツイート
+  - if target_tweet.user.profile.present? and target_tweet.user.profile.image.present? 
+    = image_tag target_tweet.user.profile.image.url, class: "img-rounded pull-left"
+  - else
+    = image_tag 'no_image1.png', class: "img-rounded pull-left"
+  .content
+    .username
+      = link_to target_tweet.user.username, target_tweet.user
+    %div 
+      = simple_format target_tweet.content
+    %div 
+      = render 'retweet', tweet: target_tweet
+      = render 'like', tweet: target_tweet
+      = render 'delete', tweet: target_tweet

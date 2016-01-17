@@ -25,6 +25,9 @@
           %span.typed_count<
             140
           = f.submit "ツイート", class: "btn btn-primary tweetbtn"
-      = render 'tweets', tweets: @timeline_tweets
+      - if @timeline_tweets.any?
+        = render @timeline_tweets
+      - else
+        .no_tweet.list-group-item<
+          該当のツイートは存在しません
       = render 'more', tweets: @timeline_tweets , options: {remote: true, id: 'view_more'}, classname: 'morearea'
-
