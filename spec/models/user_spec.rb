@@ -68,6 +68,27 @@ RSpec.describe User, :type => :model do
     end
   end
 
+  describe "liked?" do
+    before :each do 
+      @user1 = create(:user1)
+      @user2 = create(:user2)
+      @tweet2 = create(:tweet, user: @user2)
+      create(:like, user: @user1, like_tweet: @tweet2)
+    end
+
+    it "returns true with liked tweet" do
+      expect(@user1.liked?(@tweet2)).to eq true
+    end
+
+    it "returns false with not liked tweet" do
+      expect(@user2.liked?(@tweet2)).to eq false
+    end
+
+    it "returns false with nil" do
+      expect(@user1.liked?(nil)).to eq false
+    end
+  end
+
   describe "own?" do
     before :each do 
       @user1 = create(:user1)
@@ -78,32 +99,15 @@ RSpec.describe User, :type => :model do
     end
 
     it "returns true with own tweet" do
-      expect(@user1.own?(@tweet1)).to be_truthy
+      expect(@user1.own?(@tweet1)).to eq true
     end
 
-    it "returns false with others tweet" do
-      expect(@user1.own?(@tweet2)).to be_falsey
+    it "returns false with other's tweet" do
+      expect(@user1.own?(@tweet2)).to eq false
     end
 
     it "returns false with nil" do
-      expect(@user1.own?(@tweet2)).to be_falsey
-    end
-  end
-
-  describe "liked?" do
-    before :each do 
-      @user1 = create(:user1)
-      @user2 = create(:user2)
-      @tweet2 = create(:tweet, user: @user2)
-      create(:like, user: @user1, like_tweet: @tweet2)
-    end
-
-    it "returns true with liked tweet" do
-      expect(@user1.liked?(@tweet2)).to be_truthy
-    end
-
-    it "returns false with not liked tweet" do
-      expect(@user2.liked?(@tweet2)).to be_falsey
+      expect(@user1.own?(nil)).to eq false
     end
   end
 
@@ -118,11 +122,15 @@ RSpec.describe User, :type => :model do
     end
 
     it "returns true with retweeted tweet" do
-      expect(@user1.retweeting?(@tweet2)).to be_truthy
+      expect(@user1.retweeting?(@tweet2)).to eq true
     end
 
     it "returns false with not retweeted tweet" do
-      expect(@user1.retweeting?(@tweet3)).to be_falsey
+      expect(@user1.retweeting?(@tweet3)).to eq false
+    end
+
+    it "returns false with nil" do
+      expect(@user1.retweeting?(nil)).to eq false
     end
   end
 
@@ -134,11 +142,15 @@ RSpec.describe User, :type => :model do
     end
 
     it "returns true with following user" do
-      expect(@user1.following?(@user2)).to be_truthy
+      expect(@user1.following?(@user2)).to eq true
     end
 
     it "returns false with not following user" do
-      expect(@user2.following?(@user1)).to be_falsey
+      expect(@user2.following?(@user1)).to eq false
+    end
+
+    it "returns false with nil" do
+      expect(@user2.following?(nil)).to eq false
     end
   end
 end
