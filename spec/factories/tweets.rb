@@ -1,5 +1,3 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :tweet do
 
@@ -9,12 +7,12 @@ FactoryGirl.define do
 
     factory :long_tweet do
       user :user1
-      content "aaaaaaaaaaiiiiiiiiiiuuuuuuuuuueeeeeeeeeeuuuuuuuuuuooooooooookkkkkkkkkkssssssssssttttttttttnnnnnnnnnnhhhhhhhhhhmmmmmmmmmmyyyyyyyyyyrrrrrrrrrr"
+      content { Faker::Lorem.characters(140) }
     end
 
     factory :too_long_tweet do
       user :user1
-      content "aaaaaaaaaaiiiiiiiiiiuuuuuuuuuueeeeeeeeeeuuuuuuuuuuooooooooookkkkkkkkkkssssssssssttttttttttnnnnnnnnnnhhhhhhhhhhmmmmmmmmmmyyyyyyyyyyrrrrrrrrrrz"
+      content { Faker::Lorem.characters(141) }
     end
   end
 end

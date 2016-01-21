@@ -12,12 +12,12 @@ RSpec.describe Like, :type => :model do
     expect(like).to be_valid
   end
 
-  it "is invalid without any tweet" do
+  it "is invalid without a tweet" do
     like = build(:like, user: @user1, like_tweet: nil)
     expect(like).not_to be_valid
   end
 
-  it "is invalid without any user" do
+  it "is invalid without a user" do
     like = build(:like, user: nil, like_tweet: @tweet2)
     expect(like).not_to be_valid
   end

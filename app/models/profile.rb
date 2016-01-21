@@ -7,11 +7,10 @@ class Profile < ActiveRecord::Base
 
   def update_with_params(params)
     if params[:image].present?
-      result = self.update(params)
+      self.update(params)
     else
-      result = self.update_except_for_image(params)
+      self.update_except_for_image(params)
     end
-    result
   end
 
   def update_except_for_image(profile_params)

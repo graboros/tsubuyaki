@@ -11,12 +11,12 @@ RSpec.describe Following, :type => :model do
     expect(following).to be_valid
   end
 
-  it "is invalid without any following" do
+  it "is invalid without a following" do
     following = build(:following, following: nil, follower: @user2)
     expect(following).not_to be_valid
   end
 
-  it "is invalid without any follower" do
+  it "is invalid without a follower" do
     following = build(:following, following: @user1, follower: nil)
     expect(following).not_to be_valid
   end
