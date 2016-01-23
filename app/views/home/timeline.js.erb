@@ -1,2 +1,2 @@
-$(".morearea").before("<%= escape_javascript(render 'tweets', tweets: @timeline_tweets) %>")
+$(".morearea").before("<%= escape_javascript(render @timeline_tweets) %>")
               .replaceWith("<%= escape_javascript(render 'more', tweets: @timeline_tweets) %>");

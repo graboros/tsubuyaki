@@ -2,6 +2,11 @@
   .row
     .col-xs-3
     .tweets.col-xs-9.list-group3
-      .textarea.list-group-item
+      .textarea.list-group-item<
         = @text + " の検索結果"
-      = render 'tweets', tweets: Tweet.where('content LIKE ?', "%#{@text}%" )
+      - tweets = Tweet.where('content LIKE ?', "%#{@text}%") 
+      - if tweets.any?
+        = render tweets
+      - else
+        .no_tweet.list-group-item<
+          該当のツイートは存在しません

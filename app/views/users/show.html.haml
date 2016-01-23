@@ -1,6 +1,6 @@
 .users_show.container
   .row
-    .profile.col-xs-3{"id"=> "user#{@user.id}"}
+    .profile.col-xs-3{id: "user#{@user.id}"}
       - if @user.profile.present? and @user.profile.image.present? 
         = image_tag @user.profile.image.url, class: "img-rounded"
       - else
@@ -13,13 +13,13 @@
       = render 'follow', user: @user
     .tweets.col-xs-9.list-group
       %ul.nav.nav-tabs
-        %li{"class"=> "#{user_show_path? ? 'active' : ''}"}
+        %li{class: "#{user_show_path? ? 'active' : ''}"}
           = link_to 'ツイート', user_url(@user)
-        %li{"class"=> "#{user_followings_path? ? 'active' : ''}"}
+        %li{class: "#{user_followings_path? ? 'active' : ''}"}
           = link_to 'フォロー', user_followings_url(@user)
-        %li{"class"=> "#{user_followers_path? ? 'active' : ''}"}
+        %li{class: "#{user_followers_path? ? 'active' : ''}"}
           = link_to 'フォロワー', user_followers_url(@user)
-        %li{"class"=> "#{user_likes_path? ? 'active' : ''}"}
+        %li{class: "#{user_likes_path? ? 'active' : ''}"}
           = link_to 'いいね', user_likes_url(@user)
       - if me?(@user)
         = link_to 'プロフィール変更', edit_user_profile_path(current_user), class: "edit_profile btn btn-info"
