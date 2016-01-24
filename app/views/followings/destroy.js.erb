@@ -1,2 +1,2 @@
 $("#user<%= @user.id %> a.followbtn").replaceWith(
-  "<%= escape_javascript(render 'follow', user: @user) %>"); 
+  "<%= j render('follow', user: @user) %>"); 

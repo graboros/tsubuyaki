@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: "home#index"
-  post "search" => "home#search"
+  post :search, to: "home#search"
 
-  resources :users, only: [:show] do 
+  resources :users, only: [:show] do
     resources :tweets, only: [:create, :destroy] do
       member do
         post :retweet, :unretweet

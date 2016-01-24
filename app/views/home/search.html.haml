@@ -4,7 +4,7 @@
     .tweets.col-xs-9.list-group3
       .textarea.list-group-item<
         = @text + " の検索結果"
-      - tweets = Tweet.where('content LIKE ?', "%#{@text}%") 
+      - tweets = Tweet.where('content LIKE ?', "%#{@text}%")
       - if tweets.any?
         = render tweets
       - else

@@ -1,9 +1,9 @@
 <% if @tweets.present? %>
-  $(".morearea").before("<%= escape_javascript(render @tweets) %>")
-                .replaceWith("<%= escape_javascript(render 'more', tweets: @tweets, options: {remote: true, id: 'view_more'}) %>")
+  $(".morearea").before("<%= j render @tweets %>")
+                .replaceWith("<%= j render('more', tweets: @tweets, options: {remote: true, id: 'view_more'}) %>")
 <% end %>
 
 <% if @like_tweets.present? %>
-  $(".like_morearea").before("<%= escape_javascript(render @like_tweets) %>")
-                .replaceWith("<%= escape_javascript(render 'more', tweets: @like_tweets, options: {remote: true, id: 'like_view_more', param_name: 'likepage'}) %>")
+  $(".like_morearea").before("<%= j render @like_tweets %>")
+                .replaceWith("<%= j render('more', tweets: @like_tweets, options: {remote: true, id: 'like_view_more', param_name: 'likepage'}) %>")
 <% end %>
