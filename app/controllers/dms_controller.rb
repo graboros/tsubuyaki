@@ -47,8 +47,8 @@ class DmsController < ApplicationController
 
     elsif params[:nextbtn].present?
 
+      @user_array.try(:delete, current_user.id.to_s)
       if @user_array.present?
-        @user_array.delete(current_user.id)
         @user_array.uniq!
         session[:message_to] = @user_array
         render js: "window.location = '#{new_dm_url}'";
