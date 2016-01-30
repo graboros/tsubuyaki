@@ -7,7 +7,7 @@ RSpec.describe TweetsController, :type => :controller do
     context "with valid attributes " do
       it "saves the new tweet in the database" do
         expect {
-          post :create, user_id: subject.current_user.id, tweet: attributes_for(:tweet1)
+          post :create, user_id: subject.current_user.id, tweet: attributes_for(:tweet1), format: 'js'
         }.to change(Tweet, :count).by(1)
       end
     end
@@ -15,7 +15,7 @@ RSpec.describe TweetsController, :type => :controller do
     context "with invalid attributes" do
       it "does not save the new tweet in the database" do
         expect {
-          post :create, user_id: subject.current_user.id, tweet: attributes_for(:too_long_tweet)
+          post :create, user_id: subject.current_user.id, tweet: attributes_for(:too_long_tweet), format: 'js'
         }.not_to change(Tweet, :count)
       end
     end
@@ -24,14 +24,14 @@ RSpec.describe TweetsController, :type => :controller do
 
       it "does not save the new tweet in the database" do
         expect {
-          post :create, user_id: subject.current_user.id, tweet: attributes_for(:tweet1, content: "")
+          post :create, user_id: subject.current_user.id, tweet: attributes_for(:tweet1, content: ""), format: 'js'
         }.not_to change(Tweet, :count)
       end
     end
 
-    it "redirects to the root_url" do
-      post :create, user_id: subject.current_user.id, tweet: attributes_for(:tweet1, content: "")
-      expect(response).to redirect_to root_url
+    it "render to the :create template" do
+      post :create, user_id: subject.current_user.id, tweet: attributes_for(:tweet1), format: 'js'
+      expect(response).to render_template :create
     end
   end
 
@@ -81,18 +81,8 @@ RSpec.describe TweetsController, :type => :controller do
 
     context "with not retweeted" do
       it "saves the new retweet in the database" do
-        expect {
-          post :retweet, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
-        }.to change(Retweeting, :count).by(1)
-      end
-    end
-
-    context "with already retweeted" do
-      it "does not save the new retweet in the database" do
         post :retweet, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
-        expect {
-          post :retweet, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
-        }.not_to change(Retweeting, :count)
+        expect(assigns(:retweet)).to eq @others_tweet.retweeteds.first
       end
     end
 
@@ -115,17 +105,7 @@ RSpec.describe TweetsController, :type => :controller do
         post :retweet, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
         expect {
           post :unretweet, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
-        }.to change(Retweeting, :count).by(-1)
-      end
-    end
-
-    context "with already unretweeted" do
-      it "does not delete the retweet" do
-        post :retweet, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
-        post :unretweet, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
-        expect {
-          post :unretweet, user_id: @others_tweet.user.id, id: @others_tweet.id, format: 'js'
-        }.not_to change(Retweeting, :count)
+        }.to change(Tweet, :count).by(-1)
       end
     end
 

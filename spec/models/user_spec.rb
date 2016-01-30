@@ -60,8 +60,8 @@ RSpec.describe User, :type => :model do
     end
 
     it "does not include retweets" do
-      @retweet = @user1.tweets.build()
-      @retweet.retweeting_relationships.build(retweeted: @tweet3)
+      @retweet = @tweet3.retweeteds.build();
+      @retweet.user = @user1
       @retweet.save
 
       expect(@user1.timeline_tweets).not_to include(@retweet)
@@ -105,20 +105,18 @@ RSpec.describe User, :type => :model do
     it "returns false with other's tweet" do
       expect(@user1.own?(@tweet2)).to eq false
     end
-
-    it "returns false with nil" do
-      expect(@user1.own?(nil)).to eq false
-    end
   end
 
   describe "retweeting?" do
     before :each do 
       @user1 = create(:user1)
       @user2 = create(:user2)
-      @tweet1 = create(:tweet, user: @user1, content: nil)
       @tweet2 = create(:tweet, user: @user2)
       @tweet3 = create(:tweet, user: @user2)
-      create(:retweeting, retweet: @tweet1, retweeted: @tweet2)
+
+      @tweet1 = @tweet2.retweeteds.build();
+      @tweet1.user = @user1
+      @tweet1.save
     end
 
     it "returns true with retweeted tweet" do

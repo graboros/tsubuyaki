@@ -8,13 +8,13 @@ feature "Retweet Posting" do
     @tweet2 = create(:tweet1, user: @user2, content: "てすとツイート1")
 
     @user3 = create(:user3)
-    @tweet3 = tweet = create(:tweet1, user: @user3, content: "てすとツイート2")
+    @tweet3 = create(:tweet1, user: @user3, content: "てすとツイート2")
 
     create(:following, following: @user2, follower: user) 
 
-    @tweet1 = create(:tweet1, user: user, content: "nil")
-    create(:retweeting, retweet: @tweet1, retweeted: @tweet3)
-
+    @tweet1 = @tweet3.retweeteds.build()
+    @tweet1.user = user
+    @tweet1.save
   }
 
   scenario "done on timeline", js: true do

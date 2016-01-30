@@ -20,6 +20,7 @@ class TweetsController < ApplicationController
 
   def retweet
     @retweet = current_user.tweets.find_or_initialize_by(retweet: @tweet)
+
     unless @retweet.save
       render js: 'addAlert("リツイートに失敗しました");'
     end

@@ -37,7 +37,7 @@ RSpec.describe LikesController, :type => :controller do
       context "with not liked tweet" do
         it "saves the new like in the database" do
           expect {
-            post :create, user_id: @tweet1.user, id: @tweet1.id, format: 'js'
+            post :create, user_id: @tweet1.user, tweet_id: @tweet1.id, format: 'js'
           }.to change(Like, :count).by(1)
         end
       end
@@ -46,18 +46,18 @@ RSpec.describe LikesController, :type => :controller do
         it "does not save the new like in the database" do
           create(:like, user: subject.current_user, like_tweet: @tweet1)
           expect {
-            post :create, user_id: @tweet1.user, id: @tweet1.id, format: 'js'
-          }.not_to change(Retweeting, :count)
+            post :create, user_id: @tweet1.user, tweet_id: @tweet1.id, format: 'js'
+          }.not_to change(Like, :count)
         end
       end
 
       it "assigns the requested tweet to @tweet" do
-        post :create, user_id: @tweet1.user, id: @tweet1.id, format: 'js'
+        post :create, user_id: @tweet1.user, tweet_id: @tweet1.id, format: 'js'
         expect(assigns(:tweet)).to eq @tweet1
       end
 
       it "renders to the :create template" do
-        post :create, user_id: @tweet1.user, id: @tweet1.id, format: 'js'
+        post :create, user_id: @tweet1.user, tweet_id: @tweet1.id, format: 'js'
         expect(response).to render_template :create
       end
 
@@ -66,7 +66,7 @@ RSpec.describe LikesController, :type => :controller do
     context "when not signed-in" do
       it "does not save the new like in the database" do
         expect {
-          post :create, user_id: @tweet1.user, id: @tweet1.id, format: 'js'
+          post :create, user_id: @tweet1.user, tweet_id: @tweet1.id, format: 'js'
         }.not_to change(Like, :count)
       end
     end
@@ -79,17 +79,17 @@ RSpec.describe LikesController, :type => :controller do
       login_user
 
       before do
-        create(:like, user: subject.current_user, like_tweet: @tweet1)
+        @like = create(:like, user: subject.current_user, like_tweet: @tweet1)
       end
 
       it "deletes the like in the database" do
         expect {
-          delete :destroy, user_id: @tweet1.user, id: @tweet1.id, format: 'js'
+          delete :destroy, user_id: @tweet1.user, tweet_id: @tweet1.id, id: @like.id, format: 'js'
         }.to change(Like, :count).by(-1)
       end
 
       it "render to the :destroy template" do
-        delete :destroy, user_id: @tweet1.user.id, id: @tweet1.id, format: 'js'
+        delete :destroy, user_id: @tweet1.user.id, tweet_id: @tweet1.id, id: @like.id, format: 'js'
         expect(response).to render_template :destroy
       end
     end
@@ -97,9 +97,9 @@ RSpec.describe LikesController, :type => :controller do
     context "when not signed-in" do
       it "does not delete the like in the database" do
         @user1 = build(:user1)
-        create(:like, user: @user1, like_tweet: @tweet1)
+        like = create(:like, user: @user1, like_tweet: @tweet1)
         expect {
-          delete :destroy, user_id: @tweet1.user, id: @tweet1.id, format: 'js'
+          delete :destroy, user_id: @tweet1.user, tweet_id: @tweet1.id, id: like.id , format: 'js'
         }.not_to change(Like, :count)
       end
     end

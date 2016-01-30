@@ -1,6 +1,8 @@
 FactoryGirl.define do
   factory :tweet do
 
+    content { Faker::Lorem.characters(10) }
+
     factory :tweet1 do
       content "MyString"
     end
