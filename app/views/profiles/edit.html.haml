@@ -2,7 +2,7 @@
   .row
     .col-xs-3
     .col-xs-9
-      = form_for(current_user.profile || Profile.new, url: user_profile_path(current_user)) do |f|
+      = form_for [current_user, current_user.profile] do |f|
         .field.introduction
           %div
             = f.label :introduction, '自己紹介'

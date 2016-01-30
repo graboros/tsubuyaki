@@ -20,12 +20,13 @@
     .tweets.col-xs-9.list-group
       .tweetarea.list-group-item
         - @tweet = Tweet.new
-        = form_for @tweet, url: [current_user, @tweet] do |f|
+        = form_for @tweet, url: [current_user, @tweet], remote: true do |f|
           = f.text_area :content, class: "tweet", placeholder: "いまどうしてる？", onkeyup: "tweet_keyup()", rows: "1", onfocus: "tweet_focusin()", onblur: "tweet_focusout()"
           %span.typed_count<
             140
           = f.submit "ツイート", class: "btn btn-primary tweetbtn"
-      - if @timeline_tweets.any?
+      .timelinearea
+      - if @timeline_tweets.present?
         = render @timeline_tweets
       - else
         .no_tweet.list-group-item<

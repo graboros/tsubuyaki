@@ -3,18 +3,11 @@ class TweetsController < ApplicationController
   before_action :set_tweet, only: %i(destroy retweet unretweet)
 
   def create
-    params = tweet_params
+    @tweet = current_user.tweets.build(tweet_params)
 
-    if params[:content].present?
-      @tweet = current_user.tweets.build(params)
-      if @tweet.save 
-        msg_option = { notice: "ツイートしました" }
-      else
-        msg_option = { alert: "ツイートに失敗しました" }
-      end
+    unless @tweet.save
+      render js: 'addAlert("ツイートに失敗しました");'
     end
-
-    redirect_to root_url, msg_option || {}
   end
 
   def destroy
@@ -26,12 +19,9 @@ class TweetsController < ApplicationController
   end
 
   def retweet
-    @retweet = @tweet.retweets.find_or_initialize_by(user: current_user)
-    if @retweet.new_record?
-      @retweet.retweeting_relationships.build(retweeted: @tweet)
-      unless @retweet.save
-        render js: 'addAlert("リツイートに失敗しました");'
-      end
+    @retweet = current_user.tweets.find_or_initialize_by(retweet: @tweet)
+    unless @retweet.save
+      render js: 'addAlert("リツイートに失敗しました");'
     end
   end
 

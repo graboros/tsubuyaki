@@ -23,18 +23,21 @@ class User < ActiveRecord::Base
 
   def timeline_tweets
     timeline_users = self.followings.to_a << self
-    Tweet.includes(:retweeteds).where(user: timeline_users).where(retweetings: {id: nil}).order(updated_at: :desc)
+    Tweet.where(user: timeline_users).where(retweet: nil).order(updated_at: :desc)
   end
 
   def liked?(tweet)
     self.like_tweets.include?(tweet)
   end
+
   def own?(tweet)
-    self.tweets.include?(tweet)
+    tweet.user_id == self.id
   end
+
   def retweeting?(tweet)
-    self.retweeteds.include?(tweet)
+    self.tweets.find_by(retweet: tweet).present?
   end
+
   def following?(user)
     self.followings.include?(user)
   end
@@ -47,4 +50,8 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
+
+  after_create do
+    self.create_profile
+  end 
 end

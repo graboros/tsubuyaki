@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160116082524) do
+ActiveRecord::Schema.define(version: 20160126141133) do
+
+  create_table "dm_messages", force: :cascade do |t|
+    t.integer  "dm_id",      limit: 4
+    t.integer  "user_id",    limit: 4
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "dm_messages", ["dm_id"], name: "index_dm_messages_on_dm_id", using: :btree
+  add_index "dm_messages", ["user_id"], name: "index_dm_messages_on_user_id", using: :btree
 
   create_table "dm_users", force: :cascade do |t|
     t.integer  "dm_id",      limit: 4
@@ -22,17 +33,6 @@ ActiveRecord::Schema.define(version: 20160116082524) do
 
   add_index "dm_users", ["dm_id"], name: "index_dm_users_on_dm_id", using: :btree
   add_index "dm_users", ["user_id"], name: "index_dm_users_on_user_id", using: :btree
-
-  create_table "dmmessages", force: :cascade do |t|
-    t.integer  "dm_id",      limit: 4
-    t.integer  "user_id",    limit: 4
-    t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "dmmessages", ["dm_id"], name: "index_dmmessages_on_dm_id", using: :btree
-  add_index "dmmessages", ["user_id"], name: "index_dmmessages_on_user_id", using: :btree
 
   create_table "dms", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -84,8 +84,10 @@ ActiveRecord::Schema.define(version: 20160116082524) do
     t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "retweet_id", limit: 4
   end
 
+  add_index "tweets", ["retweet_id"], name: "fk_rails_7caf97240b", using: :btree
   add_index "tweets", ["user_id"], name: "index_tweets_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -111,10 +113,10 @@ ActiveRecord::Schema.define(version: 20160116082524) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "dm_messages", "dms"
+  add_foreign_key "dm_messages", "users"
   add_foreign_key "dm_users", "dms"
   add_foreign_key "dm_users", "users"
-  add_foreign_key "dmmessages", "dms"
-  add_foreign_key "dmmessages", "users"
   add_foreign_key "followings", "users", column: "followed_id"
   add_foreign_key "followings", "users", column: "following_id"
   add_foreign_key "likes", "tweets"
@@ -122,5 +124,6 @@ ActiveRecord::Schema.define(version: 20160116082524) do
   add_foreign_key "profiles", "users"
   add_foreign_key "retweetings", "tweets"
   add_foreign_key "retweetings", "tweets", column: "retweeted_id"
+  add_foreign_key "tweets", "tweets", column: "retweet_id"
   add_foreign_key "tweets", "users"
 end

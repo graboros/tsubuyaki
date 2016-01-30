@@ -1,5 +1,14 @@
 - content_for :title_area do
   .dmtitle<
-    = "ダイレクトメッセージ送信（#{sendto_usernames(@users)}）"
-.list-group-item
-  = render 'message_input', action: "create", method: :post
+    ダイレクトメッセージ送信
+.dmsearcharea.list-group-item
+  メッセージを送付するユーザ名を検索し、選択してください
+  = form_tag search_user_dms_path, method: :post, remote: true do
+    = text_field_tag :search_text, "", placeholder: "名前を入力してください"
+    = submit_tag "検索", class: "btn btn-primary dmsearchbtn", name: "searchbtn"
+  = form_for DmMessage.new, url: { controller: "dms", action: "create" }, html: { method: :post } do |form|
+    .dmusers
+      - if @users.present?
+        - @users.each do |user|
+          = render 'user', user: user
+    = render 'message_input', form: form, onclick_func: "return check_present_onnew();"

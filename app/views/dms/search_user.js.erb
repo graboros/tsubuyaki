@@ -1,0 +1,11 @@
+var $usertext = $("div.dmsearcharea input[type=text]");
+<% if @user.blank? or me?(@user) %>
+  if ($usertext.val() !== "") {
+    alert("ユーザ「" + $usertext.val() + "」は存在しません");
+  }
+<% else  %>
+  if ($("div.dmusers input[type=checkbox]#user_<%= @user.id %>").size() === 0) {
+    $("div.dmusers").append("<%= j render('user', user: @user) %>");
+  }
+<% end %>
+$usertext.val("");

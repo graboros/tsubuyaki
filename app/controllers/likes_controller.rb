@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-  before_action :authenticate_user!, :set_tweet, only: %i(create destroy)
+  before_action :authenticate_user!, only: %i(create destroy)
   before_action :set_user, only: %i(index)
 
   def index
@@ -8,6 +8,7 @@ class LikesController < ApplicationController
   end
 
   def create
+    @tweet = Tweet.find(params[:tweet_id])
     @like = current_user.likes.find_or_initialize_by(like_tweet: @tweet)
     unless @like.save
       render js: 'addAlert("いいねの登録に失敗しました");'
@@ -15,11 +16,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    current_user.likes.find_by!(like_tweet: @tweet).destroy
-  end
-
-private
-  def set_tweet
-    @tweet = Tweet.find(params[:id])
+    @like = Like.find(params[:id])
+    @like.destroy
   end
 end

@@ -2,9 +2,9 @@
   .dmtitle<
     ダイレクトメッセージ
   .dmnew<
-    = link_to "メッセージを作成", select_users_dms_path, class: "btn btn-primary btn-home"
+    = link_to "メッセージを作成", new_dm_path, class: "btn btn-primary btn-home"
 - dms = current_user.dms
-- if dms.any?
+- if dms.present?
   - dms.each do |dm|
     .list-group-item<
       = link_to dm_path(dm) do

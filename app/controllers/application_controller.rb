@@ -17,4 +17,14 @@ private
   def set_user
     @user = User.find(params[:user_id])
   end
+
+  def redirect_when_dm_is_not_mine
+    unless @dm.users.include?(current_user)
+      redirect_to dms_url, alert: "権限のないDMにアクセスされました"
+    end
+  end
+
+  def message_params
+    params.require(:dm_message).permit(:content)
+  end
 end

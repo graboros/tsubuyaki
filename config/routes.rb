@@ -10,20 +10,18 @@ Rails.application.routes.draw do
       member do
         post :retweet, :unretweet
       end
+      resources :likes, only: [:create, :destroy]
     end
 
-    resources :likes, only: [:index, :create, :destroy]
+    resources :likes, only: [:index]
     resources :followings, only: [:index, :create, :destroy]
-    resource :profile, only: [:edit, :create, :update]
+    resource :profile, only: [:edit, :update]
   end
 
   resources :dms, only: [:index, :show, :new, :create] do
-    member do
-      post :add_message
-    end
+    resources :dm_messages, only: [:create]
     collection do
-      get :select_users
-      post :submit_users
+      post :search_user
     end
   end
 

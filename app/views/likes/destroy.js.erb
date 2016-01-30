@@ -1,2 +1,2 @@
-$("#tweet<%= @tweet.id %> a.likebtn").replaceWith(
-  "<%= j render('like', tweet: @tweet) %>");
+$("#tweet<%= @like.like_tweet.id %> a.likebtn").replaceWith(
+  "<%= j render('like', tweet: @like.like_tweet) %>");

@@ -2,12 +2,9 @@
   .dmtitle<
     = "ダイレクトメッセージ送信（#{sendto_usernames(@dm.users)}）"
 .list-group-item
-  = render 'message_input', action: "add_message", method: :post
+  = form_for [@dm, DmMessage.new], remote: true do |form|
+    = render 'message_input', form: form, onclick_func: "return check_content_present();"
 .detail.list-group-item
   .list-group
-    - @dm.dmmessages.each do |msg|
-      .content.list-group-item
-        .username<
-          = msg.user.username
-        %div<
-          = msg.content
+    - @dm.dm_messages.each do |dm_message|
+      = render dm_message

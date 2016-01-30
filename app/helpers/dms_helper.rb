@@ -8,17 +8,12 @@ module DmsHelper
     end
   end
 
-  def get_searched_and_selected_user(search_text, user_array)
+  def search_user(search_text)
     if search_text.present?
-      searched = User.where(username: search_text).where.not(id: current_user.id)
+      User.where(username: search_text).where.not(id: current_user.id)
+    else
+      User.none
     end
-
-    if user_array.present?
-      searched = searched.select{|user| user_array.exclude?(user.id.to_s)}
-      selected = User.where(id: user_array)
-    end
-
-    return searched, selected
   end
 
 end

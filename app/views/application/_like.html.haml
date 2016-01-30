@@ -1,5 +1,6 @@
 - if user_signed_in?
-  - if current_user.liked?(tweet)
-    = link_to 'いいね', user_like_url(current_user, tweet), { method: :delete, class: "likebtn btn btn-danger btn-sm", remote: true }
+  - like = current_user.likes.find_by(like_tweet: tweet)
+  - if like.present?
+    = link_to 'いいね', [current_user, tweet, like], { method: :delete, class: "likebtn btn btn-danger btn-sm", remote: true }
   - else
-    = link_to 'いいね', user_likes_url(current_user, id: tweet), { method: :post, class: "likebtn btn btn-default btn-sm", remote: true }
+    = link_to 'いいね', user_tweet_likes_url(current_user, tweet), { method: :post, class: "likebtn btn btn-default btn-sm", remote: true }

@@ -1,4 +1,4 @@
-class Dmmessage < ActiveRecord::Base
+class DmMessage < ActiveRecord::Base
   belongs_to :dm, touch: true
   belongs_to :user
   validates :content, presence: true, length: { maximum: 140 }

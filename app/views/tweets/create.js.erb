@@ -1,0 +1,6 @@
+$("div.no_tweet.list-group-item").remove();
+$("div.timelinearea").append("<%= j render @tweet %>");
+$("div.tweets_count a").text("<%= current_user.tweets_count+1 %>")
+$("textarea.tweet").val("").blur();
+$("span.typed_count").text(140);
+addNotice("ツイートしました");

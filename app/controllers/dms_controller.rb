@@ -1,7 +1,7 @@
 class DmsController < ApplicationController
   before_action :authenticate_user!
-  before_action :redirect_when_users_not_selected, :set_users_from_session, only: %i(new create)
-  before_action :set_dm, :redirect_when_dm_is_not_mine, only: %i(show add_message)
+  before_action :set_users, only: %i(create)
+  before_action :set_dm, :redirect_when_dm_is_not_mine, only: %i(show)
 
   layout 'dms_layout'
 
@@ -14,72 +14,27 @@ class DmsController < ApplicationController
   def new
   end
 
-  def add_message
-    msg = @dm.dmmessages.build(content: message_params[:content], user: current_user)
-
-    if msg.save
-      redirect_to @dm, notice: "メッセージを追加しました"
-    else
-      redirect_to @dm, alert: "メッセージの追加に失敗しました"
-    end
-  end
-
   def create
-    dm = Dm.find_or_create_by_users(current_user, @users << current_user)
-    dm.dmmessages.build(content: message_params[:content], user: current_user)
+    dm = Dm.find_or_initialize_by_users(current_user, @users)
+    dm_message = dm.dm_messages.build(message_params)
+    dm_message.user = current_user
 
     if dm.save
-      session[:message_to] = nil
-      redirect_to dm
+      redirect_to dm, notice: "メッセージを追加しました"
     else
-      redirect_to new_dm_url, alert: "メッセージの登録に失敗しました"
+      redirect_to new_dm_url, alert: "メッセージの追加に失敗しました"
     end
   end
 
-  def select_users
-  end
-
-  def submit_users
-    @user_array = params[:user]
-
-    if params[:searchbtn].present? 
-      @search_text = params[:search_text]
-
-    elsif params[:nextbtn].present?
-
-      @user_array.try(:delete, current_user.id.to_s)
-      if @user_array.present?
-        @user_array.uniq!
-        session[:message_to] = @user_array
-        render js: "window.location = '#{new_dm_url}'";
-      else
-        render js: 'alert("メッセージ送付先を選択してください");';
-      end
-    end
+  def search_user
+    @user = User.find_by(username: params[:search_text])
   end
 private
-  def redirect_when_users_not_selected
-    unless session[:message_to].present?
-      redirect_to dms_users_url, alert: "メッセージの送付先を選択してください"
-    end
-  end
-
-  def set_users_from_session
-    @users = User.where(id: session[:message_to]).order(:id)
+  def set_users
+    @users = User.where(id: params[:user_ids]).order(:id)
   end
 
   def set_dm
     @dm = Dm.find(params[:id])
   end
-
-  def message_params
-    params.require(:dmmessage).permit(:content)
-  end
-
-  def redirect_when_dm_is_not_mine
-    unless @dm.users.include?(current_user)
-      redirect_to dms_url, alert: "権限のないDMにアクセスされました"
-    end
-  end
-
 end
